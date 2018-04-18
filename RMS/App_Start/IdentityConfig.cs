@@ -11,15 +11,69 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using RMS.Models;
+using SendGrid;
+using System.Net;
+using System.Configuration;
+using System.Diagnostics;
+using SendGrid.Helpers.Mail;
 
 namespace RMS
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            //return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        // Use NuGet to install SendGrid (Basic C# client lib) 
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            //var myMessage = new SendGridMessage();
+            //myMessage.AddTo(message.Destination);
+            //myMessage.From = new EmailAddress("toukirahammedsajol@gmail.com", "Toukir");
+            //myMessage.Subject = message.Subject;
+            //myMessage.PlainTextContent = message.Body;
+            //myMessage.HtmlContent = message.Body;
+
+            ////var credentials = new NetworkCredential(
+            ////           ConfigurationManager.AppSettings["mailAccount"],
+            ////           ConfigurationManager.AppSettings["mailPassword"]
+            ////           );
+
+
+            //// Create a Web transport for sending email.
+            ////var transportWeb = new Web(credentials);
+            //var transportweb = new SendGrid.Web("SENDGRID_API_KEY");
+
+            //// Send the email.
+            //if (transportWeb != null)
+            //{
+            //    await transportWeb.DeliverAsync(myMessage);
+            //}
+            //else
+            //{
+            //    Trace.TraceError("Failed to create Web transport.");
+            //    await Task.FromResult(0);
+            //}
+
+            //var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+
+            var apiKey = ConfigurationManager.AppSettings["SENDGRID_API_KEY"];
+
+            var client = new SendGridClient(apiKey);
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("toukirahammedsajol@gmail.com", "Toukir"),
+                Subject = message.Subject,
+                PlainTextContent = message.Body,
+                HtmlContent = message.Body
+            };
+            msg.AddTo(message.Destination);
+            var response = await client.SendEmailAsync(msg);
+            Console.WriteLine(response.StatusCode);
         }
     }
 
