@@ -15,6 +15,7 @@ namespace RMS.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -169,8 +170,18 @@ namespace RMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                //ApplicationDbContext db = new ApplicationDbContext();
+
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                //var userInfo = new UserInfo() { FirstName = model.FirstName, LastName = model.LastName };
+                //user.UserInfo = userInfo;
+                //db.UserInfo.Add(userInfo);
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
+
+                
+                
+                
                 if (result.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.

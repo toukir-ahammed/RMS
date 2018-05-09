@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -15,8 +16,30 @@ namespace RMS.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+            
         }
+
+        //public virtual UserInfo UserInfo { get; set; }
+
+
     }
+
+    //public class UserInfo
+    //{
+    //    public int Id { get; set; }
+       
+    //    public string FirstName { get; set; }
+
+    //    public string LastName { get; set; }
+
+    //    public string FullName
+    //    {
+    //        get
+    //        {
+    //            return FirstName + ", " + LastName;
+    //        }
+    //    }
+    //}
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -29,5 +52,7 @@ namespace RMS.Models
         {
             return new ApplicationDbContext();
         }
+
+        //public DbSet<UserInfo> UserInfo { get; set; }
     }
 }
