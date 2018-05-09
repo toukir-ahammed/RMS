@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201805091314590_AddTwoNewFields.Designer.cs">
       <DependentUpon>201805091314590_AddTwoNewFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805091813329_AddUserInfo.cs" />
+    <Compile Include="Migrations\201805091813329_AddUserInfo.Designer.cs">
+      <DependentUpon>201805091813329_AddUserInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -280,7 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Result\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -304,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805091314590_AddTwoNewFields.resx">
       <DependentUpon>201805091314590_AddTwoNewFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805091813329_AddUserInfo.resx">
+      <DependentUpon>201805091813329_AddUserInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -173,13 +173,12 @@ namespace RMS.Controllers
                 //ApplicationDbContext db = new ApplicationDbContext();
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                //var userInfo = new UserInfo() { FirstName = model.FirstName, LastName = model.LastName };
-                //user.UserInfo = userInfo;
+                var userInfo = new MyUserInfo() { FirstName = model.FirstName, LastName = model.LastName };
+                user.MyUserInfo = userInfo;
                 //db.UserInfo.Add(userInfo);
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
-
-                
+                              
                 
                 
                 if (result.Succeeded)

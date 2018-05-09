@@ -19,27 +19,27 @@ namespace RMS.Models
             
         }
 
-        //public virtual UserInfo UserInfo { get; set; }
+        public virtual MyUserInfo MyUserInfo { get; set; }
 
 
     }
 
-    //public class UserInfo
-    //{
-    //    public int Id { get; set; }
-       
-    //    public string FirstName { get; set; }
+    public class MyUserInfo
+    {
+        public int Id { get; set; }
 
-    //    public string LastName { get; set; }
+        public string FirstName { get; set; }
 
-    //    public string FullName
-    //    {
-    //        get
-    //        {
-    //            return FirstName + ", " + LastName;
-    //        }
-    //    }
-    //}
+        public string LastName { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+    }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -53,6 +53,6 @@ namespace RMS.Models
             return new ApplicationDbContext();
         }
 
-        //public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<MyUserInfo> MyUserIfo { get; set; }
     }
 }
