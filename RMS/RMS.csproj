@@ -195,6 +195,24 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\RMSContext.cs" />
+    <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.cs" />
+    <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.Designer.cs">
+      <DependentUpon>201805101822306_IntialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.cs" />
+    <Compile Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.Designer.cs">
+      <DependentUpon>201805101908363_SomeDataValidationsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805101913231_Test.cs" />
+    <Compile Include="DAL\RMSMigrations\201805101913231_Test.Designer.cs">
+      <DependentUpon>201805101913231_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.cs" />
+    <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.Designer.cs">
+      <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,6 +317,18 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805101822306_IntialCreate.resx">
+      <DependentUpon>201805101822306_IntialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.resx">
+      <DependentUpon>201805101908363_SomeDataValidationsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805101913231_Test.resx">
+      <DependentUpon>201805101913231_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.resx">
+      <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804171413317_InitialCreate.resx">
       <DependentUpon>201804171413317_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -311,6 +341,12 @@
     <EmbeddedResource Include="Migrations\201805091813329_AddUserInfo.resx">
       <DependentUpon>201805091813329_AddUserInfo.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMSDataModel\RMSDataModel.csproj">
+      <Project>{60fe5abf-6f98-45ef-845e-bc790e441385}</Project>
+      <Name>RMSDataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

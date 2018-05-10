@@ -1,0 +1,3 @@
+Enable-Migrations -ContextTypeName RMSContext -MigrationsDirectory DAL\RMSMigrations
+Add-Migration -ConfigurationTypeName RMS.DAL.RMSMigrations.Configuration "IntialCreate"
+Update-Database
