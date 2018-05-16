@@ -16,7 +16,7 @@ namespace RMS.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
-            
+
         }
 
         public virtual MyUserInfo MyUserInfo { get; set; }
@@ -54,5 +54,7 @@ namespace RMS.Models
         }
 
         public DbSet<MyUserInfo> MyUserIfo { get; set; }
+
+        public System.Data.Entity.DbSet<RMS.Models.RoleViewModel> RoleViewModels { get; set; }
     }
 }

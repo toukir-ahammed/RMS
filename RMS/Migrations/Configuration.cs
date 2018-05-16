@@ -1,5 +1,8 @@
 namespace RMS.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using RMS.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +30,26 @@ namespace RMS.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            if (!context.Users.Any( t=> t.UserName == "admin@rms.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "admin@rms.com",
+                    Email = "admin@rms.com",
+                    MyUserInfo = new MyUserInfo { FirstName = "Admin", LastName = "Admin" },
+                    EmailConfirmed = true
+                };
+                userManager.Create(user, "@Bcd1234");
+
+                context.Roles.AddOrUpdate(m => m.Name, new IdentityRole { Name = "Admin" });
+                context.SaveChanges();
+
+                userManager.AddToRole(user.Id, "Admin");
+            }
         }
     }
 }

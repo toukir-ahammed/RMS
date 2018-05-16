@@ -1,3 +1,14 @@
 Enable-Migrations -ContextTypeName RMSContext -MigrationsDirectory DAL\RMSMigrations
 Add-Migration -ConfigurationTypeName RMS.DAL.RMSMigrations.Configuration "IntialCreate"
-Update-Database
+Update-Database -ConfigurationTypeName RMS.DAL.RMSMigrations.Configuration
+
+Fixing the Navigation Bar Style Issues
+At the moment, the navigation bar has two issues. The first issue is that the text is split over two lines but
+more annoyingly this is now overlapping the rest of the content below it, as in Figure 7-15 , where the heading
+“Roles” is not displayed. First, we’ll fix the overlapping issue, since sometimes the menu may appear over
+two lines.
+To start, in the Views\Shared\_Layout.cshtml file, modify the div with the navbar class assigned to it
+as follows. Change the css class navbar-fixed-top to navbar-static-top :
+<body>
+<div class="navbar navbar-inverse navbar-static-top ">
+<div class="container">

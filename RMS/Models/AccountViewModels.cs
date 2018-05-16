@@ -116,4 +116,13 @@ namespace RMS.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public class RoleViewModel
+    {
+        public string Id { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        [Display(Name = "Role Name")]
+        public string Name { get; set; }
+
+    }
 }

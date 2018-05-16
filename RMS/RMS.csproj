@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="DAL\RMSContext.cs" />
     <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.cs" />
     <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.Designer.cs">
@@ -231,6 +232,18 @@
     <Compile Include="Migrations\201805091813329_AddUserInfo.cs" />
     <Compile Include="Migrations\201805091813329_AddUserInfo.Designer.cs">
       <DependentUpon>201805091813329_AddUserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805161649318_RoleAdded.cs" />
+    <Compile Include="Migrations\201805161649318_RoleAdded.Designer.cs">
+      <DependentUpon>201805161649318_RoleAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805161842497_RoleAdded1.cs" />
+    <Compile Include="Migrations\201805161842497_RoleAdded1.Designer.cs">
+      <DependentUpon>201805161842497_RoleAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805161846159_RoleAddedNew.cs" />
+    <Compile Include="Migrations\201805161846159_RoleAddedNew.Designer.cs">
+      <DependentUpon>201805161846159_RoleAddedNew.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -299,6 +312,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +358,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805091813329_AddUserInfo.resx">
       <DependentUpon>201805091813329_AddUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805161649318_RoleAdded.resx">
+      <DependentUpon>201805161649318_RoleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805161842497_RoleAdded1.resx">
+      <DependentUpon>201805161842497_RoleAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805161846159_RoleAddedNew.resx">
+      <DependentUpon>201805161846159_RoleAddedNew.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

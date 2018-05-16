@@ -53,6 +53,7 @@ namespace RMS.Controllers
             }
         }
 
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -178,10 +179,11 @@ namespace RMS.Controllers
                 //db.UserInfo.Add(userInfo);
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var roleResult = await UserManager.AddToRoleAsync(user.Id, "Instructor");
                               
                 
                 
-                if (result.Succeeded)
+                if (result.Succeeded && roleResult.Succeeded)
                 {
                     //  Comment the following line to prevent log in until the user is confirmed.
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
