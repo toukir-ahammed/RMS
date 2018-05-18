@@ -23,8 +23,8 @@ namespace RMSDataModel
         [Range(0, 3)]
         public int Credits { get; set; }
 
-        [Required]
-        public int DepartmentID { get; set; }
+        
+        public int? DepartmentID { get; set; }
 
         public virtual Department Department { get; set; }
 

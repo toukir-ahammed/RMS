@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using RMSDataModel;
 
 namespace RMS.Models
 {
@@ -20,6 +22,8 @@ namespace RMS.Models
         }
 
         public virtual MyUserInfo MyUserInfo { get; set; }
+        public virtual Instructor Instructor { get; set; }
+
 
 
     }
@@ -56,5 +60,12 @@ namespace RMS.Models
         public DbSet<MyUserInfo> MyUserIfo { get; set; }
 
         public System.Data.Entity.DbSet<RMS.Models.RoleViewModel> RoleViewModels { get; set; }
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Student> Students { get; set; }
+
+
     }
 }

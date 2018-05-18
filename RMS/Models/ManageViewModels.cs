@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using RMSDataModel;
 
 namespace RMS.Models
 {
     public class IndexViewModel
     {
-        public MyUserInfo MyUserInfo { get; set; }
+        //public MyUserInfo MyUserInfo { get; set; }
+        public Instructor Instructor { get; set; }
 
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }

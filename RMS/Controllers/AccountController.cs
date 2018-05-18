@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RMS.Models;
+using RMSDataModel;
 
 namespace RMS.Controllers
 {
@@ -154,11 +155,14 @@ namespace RMS.Controllers
             }
         }
 
+        private ApplicationDbContext db = new ApplicationDbContext();
         //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
+            
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
@@ -174,9 +178,18 @@ namespace RMS.Controllers
                 //ApplicationDbContext db = new ApplicationDbContext();
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var userInfo = new MyUserInfo() { FirstName = model.FirstName, LastName = model.LastName };
-                user.MyUserInfo = userInfo;
+                //var userInfo = new MyUserInfo() { FirstName = model.FirstName, LastName = model.LastName };
+                //user.MyUserInfo = userInfo;
                 //db.UserInfo.Add(userInfo);
+
+                var instructor = new Instructor
+                {
+                    Name = model.Name,
+                    Designation = model.Designation,
+                    DepartmentId = model.DepartmentID
+                };
+
+                user.Instructor = instructor;
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleResult = await UserManager.AddToRoleAsync(user.Id, "Instructor");
@@ -217,6 +230,7 @@ namespace RMS.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+
             return View(model);
         }
 

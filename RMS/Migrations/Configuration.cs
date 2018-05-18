@@ -46,6 +46,7 @@ namespace RMS.Migrations
                 userManager.Create(user, "@Bcd1234");
 
                 context.Roles.AddOrUpdate(m => m.Name, new IdentityRole { Name = "Admin" });
+                context.Roles.AddOrUpdate(m => m.Name, new IdentityRole { Name = "Instructor" });
                 context.SaveChanges();
 
                 userManager.AddToRole(user.Id, "Admin");

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RMSDataModel;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RMS.Models
@@ -81,11 +82,16 @@ namespace RMS.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string Designation { get; set; }
 
+        [Required]
+        public int DepartmentID { get; set; }
+        public virtual Department Department { get; set; }
+
+        
     }
 
     public class ResetPasswordViewModel

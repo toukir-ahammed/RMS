@@ -193,6 +193,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -212,6 +214,30 @@
     <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.cs" />
     <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.Designer.cs">
       <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.cs" />
+    <Compile Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.Designer.cs">
+      <DependentUpon>201805171500236_DepartmentRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805180903263_User_instructor_2.cs" />
+    <Compile Include="DAL\RMSMigrations\201805180903263_User_instructor_2.Designer.cs">
+      <DependentUpon>201805180903263_User_instructor_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805180908076_User_instructor_3.cs" />
+    <Compile Include="DAL\RMSMigrations\201805180908076_User_instructor_3.Designer.cs">
+      <DependentUpon>201805180908076_User_instructor_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805180931425_Changed.cs" />
+    <Compile Include="DAL\RMSMigrations\201805180931425_Changed.Designer.cs">
+      <DependentUpon>201805180931425_Changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805180936023_Changed-1.cs" />
+    <Compile Include="DAL\RMSMigrations\201805180936023_Changed-1.Designer.cs">
+      <DependentUpon>201805180936023_Changed-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RMSMigrations\201805180958312_Changed-2.cs" />
+    <Compile Include="DAL\RMSMigrations\201805180958312_Changed-2.Designer.cs">
+      <DependentUpon>201805180958312_Changed-2.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\RMSMigrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,6 +270,14 @@
     <Compile Include="Migrations\201805161846159_RoleAddedNew.cs" />
     <Compile Include="Migrations\201805161846159_RoleAddedNew.Designer.cs">
       <DependentUpon>201805161846159_RoleAddedNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805181003108_Department_Instructor.cs" />
+    <Compile Include="Migrations\201805181003108_Department_Instructor.Designer.cs">
+      <DependentUpon>201805181003108_Department_Instructor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805181129446_Department_Instructor_1.cs" />
+    <Compile Include="Migrations\201805181129446_Department_Instructor_1.Designer.cs">
+      <DependentUpon>201805181129446_Department_Instructor_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -317,6 +351,16 @@
     <Content Include="Views\RolesAdmin\Create.cshtml" />
     <Content Include="Views\RolesAdmin\Edit.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Delete.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,6 +391,24 @@
     <EmbeddedResource Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.resx">
       <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.resx">
+      <DependentUpon>201805171500236_DepartmentRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805180903263_User_instructor_2.resx">
+      <DependentUpon>201805180903263_User_instructor_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805180908076_User_instructor_3.resx">
+      <DependentUpon>201805180908076_User_instructor_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805180931425_Changed.resx">
+      <DependentUpon>201805180931425_Changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805180936023_Changed-1.resx">
+      <DependentUpon>201805180936023_Changed-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\RMSMigrations\201805180958312_Changed-2.resx">
+      <DependentUpon>201805180958312_Changed-2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804171413317_InitialCreate.resx">
       <DependentUpon>201804171413317_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -367,6 +429,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805161846159_RoleAddedNew.resx">
       <DependentUpon>201805161846159_RoleAddedNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805181003108_Department_Instructor.resx">
+      <DependentUpon>201805181003108_Department_Instructor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805181129446_Department_Instructor_1.resx">
+      <DependentUpon>201805181129446_Department_Instructor_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

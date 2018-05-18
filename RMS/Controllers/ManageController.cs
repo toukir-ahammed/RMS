@@ -71,7 +71,9 @@ namespace RMS.Controllers
             {
                 //Adding UserInfo
 
-                MyUserInfo = currentUser.MyUserInfo,
+                //MyUserInfo = currentUser.MyUserInfo,
+
+                Instructor = currentUser.Instructor,
 
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),

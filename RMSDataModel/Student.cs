@@ -29,6 +29,9 @@ namespace RMSDataModel
         [Required]
         public int ExamRoll { get; set; }
 
+        public int? DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+
         //Navigational Properties
         public virtual ICollection<Enrollment> Enrollments { get; set; }
 

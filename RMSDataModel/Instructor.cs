@@ -11,6 +11,20 @@ namespace RMSDataModel
     {
         public int ID { get; set; }
 
+        //[Required]
+        //public string FirstName { get; set; }
+
+        //[Required]
+        //public string LastName { get; set; }
+
+        //public string FullName
+        //{
+        //    get
+        //    {
+        //        return FirstName + " " + LastName;
+        //    }
+        //}
+
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
@@ -18,6 +32,11 @@ namespace RMSDataModel
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Designation { get; set; }
+
+        
+        public int? DepartmentId { get; set; }
+
+        public virtual Department Department { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
     }
