@@ -201,6 +201,7 @@
     <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyCoursesController.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="DAL\RMSContext.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InstructorIndexData.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ResultViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -399,6 +401,8 @@
     <Content Include="Views\MyCourses\Index.cshtml" />
     <Content Include="Views\MyCourses\StudentList.cshtml" />
     <Content Include="Views\MyCourses\Details.cshtml" />
+    <Content Include="Views\Result\CheckResult.cshtml" />
+    <Content Include="Views\Result\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
