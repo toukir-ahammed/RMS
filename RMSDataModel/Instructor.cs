@@ -39,5 +39,6 @@ namespace RMSDataModel
         public virtual Department Department { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; }
     }
 }

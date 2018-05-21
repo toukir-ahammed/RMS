@@ -17,6 +17,7 @@ namespace RMSDataModel
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
+        [Display(Name = "Registration Number")]
         public string RegistrationNumber { get; set; }
 
         [Required]
@@ -24,9 +25,12 @@ namespace RMSDataModel
         public string Session { get; set; }
 
         [Required]
+        [Display(Name = "Class Roll")]
+
         public int ClassRoll { get; set; }
 
         [Required]
+        [Display(Name = "Exam Roll")]
         public int ExamRoll { get; set; }
 
         public int? DepartmentId { get; set; }

@@ -21,6 +21,7 @@ namespace RMSDataModel
 
         [Required]
         [Range(0, 3)]
+        [Display(Name = "Credit")]
         public int Credits { get; set; }
 
         

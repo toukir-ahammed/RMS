@@ -11,7 +11,21 @@ namespace RMS.Controllers
     {
         public ActionResult Index()
         {
-           
+            //TODO
+            //if(User.Identity.IsAuthenticated)
+            //{
+            //    if(User.IsInRole("Admin"))
+            //    {
+            //        return RedirectToAction("Index", "Departments");
+            //        //RedirectToActionPermanent("Index", "Departments");
+            //    }
+            //    else if(User.IsInRole("Instructor"))
+            //    {
+            //        return RedirectToAction("Index", "Instructors");
+            //        //RedirectToActionPermanent("Index", "Instructors");
+            //    }
+            //}
+
             return View();
         }
 

@@ -13,6 +13,7 @@ namespace RMSDataModel
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
+        [Display(Name = "Department Name")]
         public string Name { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }

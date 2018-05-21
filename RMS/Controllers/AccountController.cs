@@ -162,7 +162,7 @@ namespace RMS.Controllers
         public ActionResult Register()
         {
             
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            ViewBag.DepartmentID  = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 

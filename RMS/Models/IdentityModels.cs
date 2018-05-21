@@ -21,7 +21,7 @@ namespace RMS.Models
 
         }
 
-        public virtual MyUserInfo MyUserInfo { get; set; }
+        ///public virtual MyUserInfo MyUserInfo { get; set; }
         public virtual Instructor Instructor { get; set; }
 
 
@@ -57,7 +57,7 @@ namespace RMS.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<MyUserInfo> MyUserIfo { get; set; }
+        //public DbSet<MyUserInfo> MyUserIfo { get; set; }
 
         public System.Data.Entity.DbSet<RMS.Models.RoleViewModel> RoleViewModels { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
@@ -65,6 +65,7 @@ namespace RMS.Models
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Assignment> Assignments  { get; set; }
 
 
     }
