@@ -51,10 +51,11 @@
 
         <td>
             @Html.ActionLink("Details", "Details", new { courseID = item.CourseID }) |
-            @Html.ActionLink("Students", "StudentList", new { courseID = item.CourseID })
+            @Html.ActionLink("Students", "StudentList", new { courseID = item.CourseID }) |
+            @Html.ActionLink("MarkSheet", "MarkSheet", new { assignmentID = item.AssignmentID })
             @*@Html.ActionLink("Edit", "Edit", new { id = item.AssignmentID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.AssignmentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentID })*@
+        @Html.ActionLink("Details", "Details", new { id = item.AssignmentID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentID })*@
         </td>
     </tr>
 }

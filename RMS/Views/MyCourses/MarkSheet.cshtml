@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "MarkSheet";
+}
+
+<h2>MarkSheet</h2>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/jquery/jquery-1.10.2.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.full.js"></script>
+<link href="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.full.css" rel="stylesheet" media="screen">
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/lodash/lodash.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/underscore.string/underscore.string.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/moment/moment.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numeral/numeral.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/numericjs/numeric.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/js-md5/md5.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/jstat/jstat.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/lib/formulajs/formula.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/parser.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/ruleJS.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.formula.js"></script>
+@*<link href="http://handsontable.github.io/handsontable-ruleJS/css/samples.css" rel="stylesheet" media="screen">*@
+
+<!--
+<link rel="stylesheet" media="screen" href="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.full.css">
+<link rel="stylesheet" type="text/css" href="https://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.css">
+<link rel="stylesheet" type="text/css" href="https://handsontable.com/static/css/main.css">
+<script src="https://docs.handsontable.com/pro/bower_components/handsontable-pro/dist/handsontable.full.min.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/ruleJS.js"></script>
+<script src="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.formula.js"></script>
+-->
+<!--
+    <div class="top">
+     <p>Course Name : Design Pattern</p>
+     <p> Course Code: SE403</p>
+
+    </div>
+ -->
+@*<div id="hot"></div>
+    <script>
+
+
+
+        // var formula = "$D+$E"
+        $(document).ready(function () {
+            $("formulasubmit").click(function () {
+                alert("hell");
+            });
+        });
+        //var formula;
+        function getFormula() {
+            //formula = formulaform.formula;
+            alert("hello");
+
+        }
+        function WriteFile(){
+
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var fh = fso.CreateTextFile("c:\\Test.txt", true);
+            fh.WriteLine("Some text goes here...");
+            fh.Close();
+
+            alert("print");
+        }
+        var data = [
+            ['classroll', 'examroll', 'studentname', 'cmark', 'fmark', 'total'],
+            ['', '', '', '', '', '']
+        ];
+        // data[1][5] = formula;
+
+
+        var flagRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+            var currencyCode = value;
+            while (td.firstChild) {
+                td.removeChild(td.firstChild);
+            }
+            if (currencyCodes.indexOf(currencyCode) > -1) {
+                var flagElement = document.createElement('DIV');
+
+                flagElement.className = 'flag ' + currencyCode.toLowerCase();
+                td.appendChild(flagElement);
+            } else {
+                var textNode = document.createTextNode(value === null ? '' : value);
+
+                td.appendChild(textNode);
+            }
+        };
+        var hotElement = document.querySelector('#hot');
+        var hotElementContainer = hotElement.parentNode;
+        var hotSettings = {
+            data: data,
+            autoWrapRow: true,
+            mergeCells: true,
+            contextMenu: true,
+            filters: true,
+            dropdownMenu: true,
+            autoRowSize: true,
+            manualRowResize: true,
+            manualColumnResize: true,
+            rowHeaders: true,
+            manualRowMove: true,
+            manualColumnMove: true,
+            fixedRowsTop: 1,
+            fixedColumnsLeft: 0,
+            columnSorting: true,
+            sortIndicator: true,
+            stretchH: 'all',
+            formulas: true,
+            colHeaders: [
+            ],
+            fillHandle: {
+                autoInsertRow: true
+            },
+            cells: function (row, colum) {
+                var matadata = {}
+                //if(colum==data[0].length) matadata.readOnly = true;
+                //if(data[0][colum]=="total") matadata.readOnly = true;
+                return matadata;
+            },
+            afterChange: function () {
+                data = JSON.parse(JSON.stringify(data));
+                //writeTextFile("C:\Users\Unity BD\WebstormProjects\spreadsheet\file.txt",data);
+                //document.writeln(data);
+
+            },
+            beforeChange: function () {
+                var data3 = JSON.parse(JSON.stringify(data));
+            }
+
+
+
+
+
+        };
+        var hot = new Handsontable(hotElement, hotSettings);
+        //document.writeln(formula);
+       // WriteFile();
+
+    </script>
+
+    <form id="form" name="formulaform" onsubmit="WriteFile()">
+        formula : <input type="text" name="formula" style="width: 90%"> <input type="submit" name="formulasubmit" />
+
+    </form>*@
+
+@*<div>
+        @Html.ActionLink("Save", "Index")
+        @Html.ActionLink("Submit", "Index")
+    </div>*@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 text-center">
+            <div class="ajax-container">
+                <div class="controls">
+                    <button class="intext-btn btn btn-primary center-block"
+                            id="load" name="load">
+                        Load
+                    </button>
+                    <button class="intext-btn btn btn-primary center-block"
+                            id="save" name="save">
+                        Save
+                    </button>
+                    <label>
+                        <input type="checkbox" autocomplete="off"
+                               checked="checked" id="autosave"
+                               name="autosave">Autosave
+                    </label>
+                </div>
+                <pre class="console"
+                     id="example1console">Click "Load" to load data from server</pre>
+                <div id="example1"
+                     class="hot handsontable dataTable table-striped center-block"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // Variables declaration & to make our life easier we set our HTML tags to variables too
+    var
+        $$ = function(id) {return document.getElementById(id);},
+        container = $$('example1'),
+        exampleConsole = $$('example1console'),
+        autosave = $$('autosave'),
+        save = $$('save'),
+        load = $$('load'),
+        autosaveNotification,
+        hot;
+
+    hot = new Handsontable(container, {
+        startRows: 8,
+        startCols: 6,
+        rowHeaders: true,
+        colHeaders: true,
+        autoWrapRow: true,
+        mergeCells: true,
+        contextMenu: true,
+        filters: true,
+        dropdownMenu: true,
+        autoRowSize: true,
+        manualRowResize: true,
+        manualColumnResize: true,
+        rowHeaders: true,
+        manualRowMove: true,
+        manualColumnMove: true,
+        fixedRowsTop: 1,
+        fixedColumnsLeft: 0,
+        columnSorting: true,
+        sortIndicator: true,
+        stretchH: 'all',
+        formulas: true,
+
+        // This is for the AutoSave func
+        afterChange: function(change, source) {
+            if (source === 'loadData') {
+                return; //don't save this change
+            }
+            if (!autosave.checked) {
+                return;
+            }
+            clearTimeout(autosaveNotification);
+            jQuery.ajax({
+                url: '@Url.Action("Save", "MyCourses")',
+                type: "POST",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(hot.getData()),
+                data: JSON.stringify({dataListFromTable: hot.getData(), assignmentID: @ViewBag.assignmentID}),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    exampleConsole.innerHTML = 'Changes will be autosaved';
+                    autosaveNotification = setTimeout(function () {
+                        exampleConsole.innerHTML = 'Autosaved (' + change.length +
+                        ' ' + 'cell' +
+                        (change.length > 1 ? 's' : '') + ')';
+                    }, 1000);
+                    //alert(data);
+                },
+                error: function(xhr) {
+                    exampleConsole.innerHTML = 'Autosave: No Response from Controller';
+                    //alert('error');
+                }
+            });
+        }
+      // End of AutoSave func
+    });
+
+    // GET method gets data from the Controller
+    Handsontable.Dom.addEvent(load, 'click', function () {
+        jQuery.ajax({
+            //url: '/MyCourses/Load', //Controller to Get the
+                        //JsonResult From -- Json(jsonData, JsonRequestBehavior.AllowGet);
+            url: '@Url.Action("Load", "MyCourses",new { assignmentID = ViewBag.assignmentID })',
+            type: "GET",
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8', // dataType and contentType should be json
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {      // on Success send the Json data
+                                // to the table by using loaddata function""
+                //alert(data);
+                hot.loadData(data);
+                exampleConsole.innerHTML = 'Data loaded';
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+
+        // POST method gets data to the Controller
+        Handsontable.Dom.addEvent(save, 'click', function () {
+            jQuery.ajax({
+                //url: '/MyCourses/Save',
+                url: '@Url.Action("Save", "MyCourses")',
+                type: "POST",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(hot.getSourceData()),
+                data: JSON.stringify({dataListFromTable: hot.getData(), assignmentID: @ViewBag.assignmentID}),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    exampleConsole.innerHTML = 'Data saved';
+                    //alert(data);
+                },
+                error: function (xhr) {
+                    exampleConsole.innerHTML = 'Save error';
+                    //alert('error');
+                }
+            });
+        });
+
+        Handsontable.Dom.addEvent(autosave, 'click', function() {
+            if (autosave.checked) {
+                exampleConsole.innerHTML = 'Changes will be autosaved';
+            }
+            else {
+                exampleConsole.innerHTML = 'Changes will not be autosaved';
+            }
+        });
+    });
+
+</script>
+<div class="text-center">
+    <br>
+    @Html.ActionLink("Submit", "Submit", new { assignmentID = ViewBag.assignmentID },
+    new { @class = "btn btn-info btn md", role = "button" })
+</div>
+
+
+

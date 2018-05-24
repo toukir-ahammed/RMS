@@ -1,0 +1,16 @@
+﻿
+<script>
+
+    alert('hi');
+    var data = ["hello", "World"]
+    $.ajax({
+        url: "/HandsNotable/Done",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ data }),
+        dataType: "json",
+        success: function (response) {
+            response ? alert("It worked!") : alert("It didn't work.");
+        }
+    });
+</script>

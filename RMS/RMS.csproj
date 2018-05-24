@@ -197,6 +197,7 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EnrollmentsController.cs" />
+    <Compile Include="Controllers\HandsNotableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -293,6 +294,14 @@
     <Compile Include="Migrations\201805181801016_Assignment_added.Designer.cs">
       <DependentUpon>201805181801016_Assignment_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805240705334_Marks Added.cs" />
+    <Compile Include="Migrations\201805240705334_Marks Added.Designer.cs">
+      <DependentUpon>201805240705334_Marks Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805241508062_DateTimeFixed.cs" />
+    <Compile Include="Migrations\201805241508062_DateTimeFixed.Designer.cs">
+      <DependentUpon>201805241508062_DateTimeFixed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -317,6 +326,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\handsontable.full.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -387,11 +397,6 @@
     <Content Include="Views\Enrollments\Details.cshtml" />
     <Content Include="Views\Enrollments\Edit.cshtml" />
     <Content Include="Views\Enrollments\Index.cshtml" />
-    <Content Include="Views\Assignments\Create.cshtml" />
-    <Content Include="Views\Assignments\Delete.cshtml" />
-    <Content Include="Views\Assignments\Details.cshtml" />
-    <Content Include="Views\Assignments\Edit.cshtml" />
-    <Content Include="Views\Assignments\Index.cshtml" />
     <Content Include="Views\Instructors\Create.cshtml" />
     <Content Include="Views\Instructors\Delete.cshtml" />
     <Content Include="Views\Instructors\Details.cshtml" />
@@ -403,9 +408,18 @@
     <Content Include="Views\MyCourses\Details.cshtml" />
     <Content Include="Views\Result\CheckResult.cshtml" />
     <Content Include="Views\Result\Result.cshtml" />
+    <Content Include="Views\HandsNotable\Index.cshtml" />
+    <Content Include="Views\MyCourses\MarkSheet.cshtml" />
+    <Content Include="Views\Assignments\Index.cshtml" />
+    <Content Include="Views\Assignments\Details.cshtml" />
+    <Content Include="Views\Assignments\Create.cshtml" />
+    <Content Include="Views\Assignments\Edit.cshtml" />
+    <Content Include="Views\Assignments\Delete.cshtml" />
+    <Content Include="Views\MyCourses\Submit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="MarkSheets\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -483,6 +497,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805181801016_Assignment_added.resx">
       <DependentUpon>201805181801016_Assignment_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805240705334_Marks Added.resx">
+      <DependentUpon>201805240705334_Marks Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241508062_DateTimeFixed.resx">
+      <DependentUpon>201805241508062_DateTimeFixed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

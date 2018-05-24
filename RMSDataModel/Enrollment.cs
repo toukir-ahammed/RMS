@@ -14,6 +14,16 @@ namespace RMSDataModel
         public int CourseID { get; set; }
         public int StudentId { get; set; }
 
+        public double CEMark { get; set; }
+        public double FinalMark { get; set; }
+        public double TotalMark
+        {
+            get
+            {
+                return Math.Round(CEMark+ FinalMark);
+            }
+        }
+
         //[DisplayFormat(NullDisplayText = "No Grade")]
         //public Grade? Grade { get; set; }
 

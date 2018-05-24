@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using RMS.Models;
 using RMSDataModel;
 
@@ -55,6 +57,24 @@ namespace RMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                //string t = DateTime.Now.ToLongTimeString();
+                string fileName  = DateTime.Now.ToString("yyyyMMddHHmmss") + "_"
+                    + assignment.CourseID + "_"
+                    + assignment.InstructorID +
+                    ".json";
+
+
+
+                string path = Server.MapPath("~/MarkSheets/");
+                path = Path.Combine(path, fileName);
+
+                if(!generateInitialSpreadSheet(assignment.CourseID,path))
+                {
+                    return HttpNotFound();
+                }
+
+                assignment.MarksheetFileName = fileName;
+
                 db.Assignments.Add(assignment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -133,6 +153,51 @@ namespace RMS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool generateInitialSpreadSheet(int courseID, string path)
+        {
+            //if (courseID == null)
+            //{
+            //    return null;
+            //}
+
+            Course course = db.Courses.Find(courseID);
+            if (course == null)
+            {
+                return false;
+            }
+
+            var enrollments = course.Enrollments;
+            
+
+            if (enrollments == null)
+            {
+                return false;
+            }
+
+            List<string[]> studentList = new List<string[]>();
+
+            studentList.Add(new string[] { "Registration No.", "Exam Roll", "Name" });
+            foreach (var item in enrollments)
+            {
+                studentList.Add(new string[] 
+                {
+                    item.Student.RegistrationNumber,
+                    item.Student.ExamRoll.ToString(),
+                    item.Student.Name
+                });
+            }
+
+            //RedirectToAction("Save", studentList);
+            //string path = Server.MapPath("~/Marksheets/" + assignments.MarksheetFileName);
+            using (StreamWriter file = System.IO.File.CreateText(path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, studentList);
+            }
+
+            return true;
         }
     }
 }
