@@ -21,7 +21,7 @@ namespace RMS.Controllers
         // GET: Assignments
         public ActionResult Index()
         {
-            var assignments = db.Assignments.Include(a => a.Course).Include(a => a.Instructor);
+            var assignments = db.Assignments.Include(a => a.Course).Include(e => e.Department).Include(a => a.Instructor);
             return View(assignments.ToList());
         }
 
@@ -44,6 +44,7 @@ namespace RMS.Controllers
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "Name");
             return View();
         }
@@ -53,12 +54,12 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AssignmentID,InstructorID,CourseID")] Assignment assignment)
+        public ActionResult Create([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,CEDeadline,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
                 //string t = DateTime.Now.ToLongTimeString();
-                string fileName  = DateTime.Now.ToString("yyyyMMddHHmmss") + "_"
+                string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "_"
                     + assignment.CourseID + "_"
                     + assignment.InstructorID +
                     ".json";
@@ -68,7 +69,7 @@ namespace RMS.Controllers
                 string path = Server.MapPath("~/MarkSheets/");
                 path = Path.Combine(path, fileName);
 
-                if(!generateInitialSpreadSheet(assignment.CourseID,path))
+                if (!generateInitialSpreadSheet(assignment.CourseID, path))
                 {
                     return HttpNotFound();
                 }
@@ -81,6 +82,7 @@ namespace RMS.Controllers
             }
 
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", assignment.CourseID);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "Name", assignment.InstructorID);
             return View(assignment);
         }
@@ -98,6 +100,7 @@ namespace RMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", assignment.CourseID);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "Name", assignment.InstructorID);
             return View(assignment);
         }
@@ -107,7 +110,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AssignmentID,InstructorID,CourseID")] Assignment assignment)
+        public ActionResult Edit([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,,CEDeadline,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
@@ -116,6 +119,7 @@ namespace RMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", assignment.CourseID);
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
             ViewBag.InstructorID = new SelectList(db.Instructors, "ID", "Name", assignment.InstructorID);
             return View(assignment);
         }
@@ -169,7 +173,7 @@ namespace RMS.Controllers
             }
 
             var enrollments = course.Enrollments;
-            
+
 
             if (enrollments == null)
             {
@@ -181,7 +185,7 @@ namespace RMS.Controllers
             studentList.Add(new string[] { "Registration No.", "Exam Roll", "Name" });
             foreach (var item in enrollments)
             {
-                studentList.Add(new string[] 
+                studentList.Add(new string[]
                 {
                     item.Student.RegistrationNumber,
                     item.Student.ExamRoll.ToString(),

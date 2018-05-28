@@ -25,7 +25,7 @@ namespace RMS.Controllers
         public ActionResult CheckResult()
         {
             //ViewBag.ReturnUrl = returnUrl;
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            //ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
@@ -36,27 +36,124 @@ namespace RMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckResult(ResultViewModel model, string returnUrl)
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            //ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             if (!ModelState.IsValid)
             {
                 return View(model);
-            }
-
-            
+            }                     
             
             var student =  db.Students
                 .Where(c => (c.RegistrationNumber == model.RegistrationNumber))
                 .FirstOrDefault();
-
-            ViewBag.CGPA = 3.92;
-
+            
 
             if(student == null)
             {
-                return HttpNotFound();
+                ModelState.AddModelError("", "Student Not Found");
+                return View(model);
+                //return HttpNotFound();
             }
 
-            return View("Result", student);
+            var resultPublications = db.ResultPublications
+                .Where(r => r.DepartmentID == student.DepartmentId
+                && r.CalenderYear == model.CalenderYear
+                && r.Semester == model.Semester).FirstOrDefault();
+
+            if(resultPublications == null)
+            {
+                ModelState.AddModelError("", "Result is not published yet");
+                return View(model);
+            }
+
+            var publicationDate = resultPublications.PublicationDate;
+            var currentDate = DateTime.Now;
+
+            if(DateTime.Compare(publicationDate,currentDate) > 0 )
+            {
+                ModelState.AddModelError("", "Result will be published at " + publicationDate.ToString("MMMM dd, yyyy"));
+                return View(model);
+            }
+
+            var viewmodel = new MarkSheetViewModel();
+
+            viewmodel.Student = student;
+
+            var enrollments = db.Enrollments
+                .Where(e => e.StudentId == student.ID && e.Semester == model.Semester);
+            
+
+            if(!enrollments.Any())
+            {
+                ModelState.AddModelError("", "Result Not Found");
+                return View(model);
+                //return HttpNotFound();
+            }
+
+            viewmodel.Enrollments = enrollments;
+
+            double currentSemesterTotalCredits = 0.0;
+            double currentSemesterObtainedCredits = 0.0;
+
+            bool promoted = true;
+            foreach (var enrollment in enrollments )
+            {
+                var credit = enrollment.Course.Credits;
+                currentSemesterTotalCredits += credit;
+                var gp = enrollment.GradePoint;
+
+                if (gp < student.Department.LeastGPToPass || gp == 0.0)
+                {
+                    promoted = false;
+                }
+
+                currentSemesterObtainedCredits += gp*credit;
+            }
+
+            
+
+            double TotalCredits = 0.0;
+            double ObtainedCredits = 0.0;
+
+            var allEnrollments = student.Enrollments;
+
+            foreach (var enrollment in allEnrollments)
+            {
+                var credit = enrollment.Course.Credits;
+                TotalCredits += credit;
+                ObtainedCredits += enrollment.GradePoint*credit;
+            }
+
+            if (ObtainedCredits / TotalCredits < student.Department.LeastCGPAToPass)
+                viewmodel.Promoted = false;
+
+            viewmodel.Semester = model.Semester;
+            viewmodel.Promoted = promoted;
+            viewmodel.CurrentSemesterTotalCredits = currentSemesterTotalCredits;
+            viewmodel.CurrentSemesterObtainedCredits = currentSemesterObtainedCredits;
+            viewmodel.TotalCredits = TotalCredits;
+            viewmodel.TotalObtainedCredits = ObtainedCredits;
+
+            return View("Transcript", viewmodel);
         }
+
+        //public ActionResult GenerateMarksheetIndex()
+        //{
+
+        //    return View();
+        //}
+
+        //public ActionResult GenerateMarksheet()
+        //{
+        //    var model = new MarkSheetViewModel();
+        //    model.Students = db.Students
+        //        .Where(s => s.Semester == 0);
+        //    model.Courses = db.Courses;
+
+        //    model.Enrollments = db.Enrollments;
+             
+
+
+        //    return View(model);
+        //}
     }
 }

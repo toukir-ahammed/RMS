@@ -1,0 +1,87 @@
+﻿@model IEnumerable<RMSDataModel.Student>
+
+@{
+    ViewBag.Title = "TabulationSheet";
+}
+
+<h2>TabulationSheet</h2>
+
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        @foreach (var enrollment in Model.FirstOrDefault().Enrollments)
+        {
+            <th colspan="2">
+                @Html.DisplayFor(enrollItem => enrollment.Course.Title)
+            </th>
+        }
+
+        <th></th>
+    </tr>
+    <tr>
+        <th>
+
+        </th>
+
+        <th>
+
+        </th>
+        @foreach (var enrollment in Model.FirstOrDefault().Enrollments)
+        {
+            <th>
+                Mark
+            </th>
+            <th>
+                GP
+            </th>
+        }
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @foreach (var enrollment in item.Enrollments)
+            {
+                <td>
+                    @Html.DisplayFor(enrollItem => enrollment.TotalMark)
+                </td>
+                <td>
+                    @Html.DisplayFor(enrollItem => enrollment.GradePoint)
+                </td>
+            }
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Semester)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalenderYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CEMark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinalMark)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EnrollmentId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EnrollmentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EnrollmentId })
+                </td>*@
+        </tr>
+    }
+
+</table>

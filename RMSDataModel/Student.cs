@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,18 @@ namespace RMSDataModel
         public string Session { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Roll Number must be a positive value")]
         [Display(Name = "Class Roll")]
 
         public int ClassRoll { get; set; }
 
         [Required]
         [Display(Name = "Exam Roll")]
+        [Range(1, int.MaxValue, ErrorMessage = "Roll Number must be a positive value")]
         public int ExamRoll { get; set; }
+
+        [Display(Name = "Semester/Year")]
+        public Semester Semester { get; set; }
 
         public int? DepartmentId { get; set; }
         public virtual Department Department { get; set; }

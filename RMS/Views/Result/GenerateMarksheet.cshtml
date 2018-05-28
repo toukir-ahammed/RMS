@@ -1,0 +1,77 @@
+﻿@model RMS.Models.MarkSheetViewModel
+@{
+    ViewBag.Title = "GenerateMarksheet";
+}
+
+<h2>GenerateMarksheet</h2>
+
+<table class="table">
+
+    @{ var singlStudent = Model.Students.FirstOrDefault();
+        var singleEnrollment = Model.Enrollments.FirstOrDefault();}
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(item => singlStudent.RegistrationNumber)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => singlStudent.Name)
+        </td>
+        @foreach(var item in singlStudent.Enrollments)
+        { 
+            <td>
+                @Html.DisplayFor( i => item.Course.Title)
+            </td>
+        }
+    </tr>
+
+    @foreach (var student in Model.Students)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(item => student.RegistrationNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(item => student.Name)
+        </td>
+        @foreach (var enrollment in student.Enrollments)
+    {
+        <td>
+            @Html.DisplayFor(item => enrollment.TotalMark)
+        </td>
+}
+    </tr>
+    }
+
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Title)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Department.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.Credits)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { courseID = item.CourseID }) |
+                    @Html.ActionLink("Students", "StudentList", new { courseID = item.CourseID }) |
+                    @Html.ActionLink("MarkSheet", "MarkSheet", new { assignmentID = item.AssignmentID })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AssignmentID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentID })
+                </td>
+            </tr>
+        }*@
+
+</table>

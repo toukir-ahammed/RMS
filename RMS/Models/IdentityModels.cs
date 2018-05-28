@@ -66,6 +66,7 @@ namespace RMS.Models
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Assignment> Assignments  { get; set; }
+        public DbSet<ResultPublication> ResultPublications { get; set; }
 
 
     }

@@ -16,6 +16,19 @@ namespace RMSDataModel
         [Display(Name = "Department Name")]
         public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "Least Overall CGPA for Promotion")]
+        [Range(0.00,4.00)]
+        public double LeastCGPAToPass { get; set; }
+
+        [Required]
+        [Display(Name = "Least Grade Point in each Subject for Promotion")]
+        [Range(0.00, 4.00)]
+        public double LeastGPToPass { get; set; }
+
+
+        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
         public virtual ICollection<Course> Courses { get; set; }
     }
 }

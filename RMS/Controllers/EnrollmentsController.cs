@@ -11,7 +11,6 @@ using RMSDataModel;
 
 namespace RMS.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class EnrollmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -42,6 +41,7 @@ namespace RMS.Controllers
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             ViewBag.StudentId = new SelectList(db.Students, "ID", "Name");
             return View();
         }
@@ -51,7 +51,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EnrollmentId,CourseID,StudentId")] Enrollment enrollment)
+        public ActionResult Create([Bind(Include = "EnrollmentId,CourseID,StudentId,Semester,CalenderYear,CEMark,FinalMark")] Enrollment enrollment)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +61,7 @@ namespace RMS.Controllers
             }
 
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            
             ViewBag.StudentId = new SelectList(db.Students, "ID", "Name", enrollment.StudentId);
             return View(enrollment);
         }
@@ -78,6 +79,7 @@ namespace RMS.Controllers
                 return HttpNotFound();
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            
             ViewBag.StudentId = new SelectList(db.Students, "ID", "Name", enrollment.StudentId);
             return View(enrollment);
         }
@@ -87,7 +89,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EnrollmentId,CourseID,StudentId")] Enrollment enrollment)
+        public ActionResult Edit([Bind(Include = "EnrollmentId,CourseID,StudentId,Semester,CalenderYear,CEMark,FinalMark")] Enrollment enrollment)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +98,7 @@ namespace RMS.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
+            
             ViewBag.StudentId = new SelectList(db.Students, "ID", "Name", enrollment.StudentId);
             return View(enrollment);
         }

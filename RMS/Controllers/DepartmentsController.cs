@@ -11,7 +11,6 @@ using RMSDataModel;
 
 namespace RMS.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class DepartmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -48,7 +47,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentID,Name")] Department department)
+        public ActionResult Create([Bind(Include = "DepartmentID,Name,LeastCGPAToPass,LeastGPToPass")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +79,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartmentID,Name")] Department department)
+        public ActionResult Edit([Bind(Include = "DepartmentID,Name,LeastCGPAToPass,LeastGPToPass")] Department department)
         {
             if (ModelState.IsValid)
             {

@@ -11,7 +11,6 @@ using RMSDataModel;
 
 namespace RMS.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class StudentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -50,7 +49,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,RegistrationNumber,Session,ClassRoll,ExamRoll,DepartmentId")] Student student)
+        public ActionResult Create([Bind(Include = "ID,Name,RegistrationNumber,Session,ClassRoll,ExamRoll,Semester,DepartmentId")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +83,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,RegistrationNumber,Session,ClassRoll,ExamRoll,DepartmentId")] Student student)
+        public ActionResult Edit([Bind(Include = "ID,Name,RegistrationNumber,Session,ClassRoll,ExamRoll,Semester,DepartmentId")] Student student)
         {
             if (ModelState.IsValid)
             {

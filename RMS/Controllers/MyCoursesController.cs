@@ -266,9 +266,9 @@ namespace RMS.Controllers
             
         }
 
-        public ActionResult Submit(int? assignmentID)
+        public ActionResult Submit(int? assignmentID, int? id)
         {
-            if(assignmentID==null)
+            if(assignmentID==null || id == null)
             {
                 return HttpNotFound();
             }
@@ -296,7 +296,7 @@ namespace RMS.Controllers
                 jsonData = (List<string[]>)serializer.Deserialize(file, typeof(List<string[]>));
             }
 
-            int CEColumn=0, FinalColumn=0;
+            int CEColumn=-1, FinalColumn=-1;
 
             for(int i=0; i<jsonData[0].Length; i++)
             {
@@ -310,6 +310,8 @@ namespace RMS.Controllers
                     FinalColumn = i;
                 }
             }
+
+
 
             Course course = db.Courses.Find(assignment.CourseID);
 
@@ -361,28 +363,9 @@ namespace RMS.Controllers
 
             }
 
-            //foreach(var row in jsonData)
-            //{
-            //    var student = db.Students
-            //        .Where(i => i.RegistrationNumber == row[0]).FirstOrDefault();
-
-            //    if (student == null) continue;
-            //    var enrollment = db.Enrollments
-            //        .Where(i => (i.StudentId == student.ID && i.CourseID == assignment.CourseID))
-            //        .FirstOrDefault();
-
-            //    if (enrollment == null) continue;
-                
-            //    enrollment.CEMark = Convert.ToDouble(row[CEColumn]);
-            //    enrollment.FinalMark = Convert.ToDouble(row[FinalColumn]);
-            //    db.Entry(enrollment).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //}
-
-
-
-
+            
             return View();
         }
+
     }
 }

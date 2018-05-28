@@ -1,0 +1,191 @@
+﻿@model RMS.Models.MarkSheetViewModel
+@{
+    ViewBag.Title = "Transcript";
+}
+
+<h2>Transcript</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.RegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.RegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Session)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Session)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.ExamRoll)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.ExamRoll)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Department.Name)
+        </dd>
+    </dl>
+</div>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Course Code
+        </th>
+        <th>
+            Course Title
+        </th>
+        <th>
+            Credits
+        </th>
+
+        <th>
+            Grade
+        </th>
+        <th>
+            Grade Point
+        </th>
+    </tr>
+
+
+    @foreach (var enrollment in Model.Enrollments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(item => enrollment.CourseID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(item => enrollment.Course.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(item => enrollment.Course.Credits)
+            </td>
+
+            <td>
+                @Html.DisplayFor(item => enrollment.Grade)
+            </td>
+            <td>
+                @Html.DisplayFor(item => enrollment.GradePoint)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<table class="table table-bordered">
+    <tr>
+        <td colspan="6">
+            Total Credits
+        </td>
+
+        <td rowspan="3">
+            Result
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Model.Semester Semester
+        </td>
+        <td colspan="2">
+            Upto  Previous Semester
+        </td>
+
+        <td colspan="2">
+            Upto @Model.Semester Semester
+        </td>
+
+
+    </tr>
+    <tr>
+        <td colspan="2">
+            @Model.CurrentSemesterTotalCredits
+        </td>
+        <td colspan="2">
+            @Model.UptoPreviousSemesterTotalCredits
+        </td>
+
+        <td colspan="2">
+            @Model.TotalCredits
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayNameFor(item => Model.CurrentSemesterTotalCredits)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => Model.CurrentSemesterGPA)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => Model.UptoPreviousSemesterTotalCredits)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => Model.UptoPreviousSemesterGPA)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => Model.TotalCredits)
+        </td>
+        <td>
+            @Html.DisplayNameFor(item => Model.CGPA)
+        </td>
+        @if (Model.Promoted)
+        {
+            <td rowspan="2">
+                Promoted
+            </td>
+        }
+        else
+        {
+            <td rowspan="2">
+                Not Promoted
+            </td>
+        }
+    </tr>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(item => Model.CurrentSemesterTotalCredits)
+        </td>
+        <td>
+            @Html.DisplayFor(item => Model.CurrentSemesterGPA)
+        </td>
+        <td>
+            @Html.DisplayFor(item => Model.UptoPreviousSemesterTotalCredits)
+        </td>
+        <td>
+            @Html.DisplayFor(item => Model.UptoPreviousSemesterGPA)
+        </td>
+        <td>
+            @Html.DisplayFor(item => Model.TotalCredits)
+        </td>
+        <td>
+            @Html.DisplayFor(item => Model.CGPA)
+        </td>
+    </tr>
+
+</table>

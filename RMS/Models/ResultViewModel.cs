@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RMSDataModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,12 +13,17 @@ namespace RMS.Models
         [Display(Name = "Registration Number")]
         public string RegistrationNumber { get; set; }
 
+        //[Required]
+        //[Display(Name = "Department" )]
+        //public int DepartmentId { get; set; }
         [Required]
-        [Display(Name = "Department" )]
-        public int DepartmentId { get; set; }
+        [Display(Name = "Calender Year")]
+        [Range(1900, 2100)]
+        public int CalenderYear { get; set; }
 
         [Required]
         [Display(Name = "Semester/Year")]
-        public int SemesterOrYear { get; set; }
+        public Semester Semester { get; set; }
     }
+
 }

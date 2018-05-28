@@ -14,6 +14,15 @@ namespace RMSDataModel
         
         public int InstructorID { get; set; }
         public int CourseID { get; set; }
+        public int? DepartmentID { get; set; }
+
+        [Required]
+        public Semester Semester { get; set; }
+
+        [Required]
+        [Display(Name = "Calender Year")]
+        [Range(1900,2100)]
+        public int CalenderYear { get; set; }
 
         public string MarksheetFileName { get; set; }
 
@@ -32,7 +41,11 @@ namespace RMSDataModel
         
         public DateTime FinalDeadLine { get; set; }
 
+        [Display(Name = "Mark Submitted")]
+        public bool Submitted { get; set; }
+
         public virtual Course Course { get; set; }
         public virtual Instructor Instructor { get; set; }
+        public virtual Department Department { get; set; }
     }
 }

@@ -14,6 +14,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeastCGPAToPass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeastGPToPass)
+        </th>
         <th></th>
     </tr>
 
@@ -21,6 +27,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeastCGPAToPass)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeastGPToPass)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }) |

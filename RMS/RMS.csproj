@@ -203,50 +203,10 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyCoursesController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\ResultPublicationsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
-    <Compile Include="DAL\RMSContext.cs" />
-    <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.cs" />
-    <Compile Include="DAL\RMSMigrations\201805101822306_IntialCreate.Designer.cs">
-      <DependentUpon>201805101822306_IntialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.cs" />
-    <Compile Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.Designer.cs">
-      <DependentUpon>201805101908363_SomeDataValidationsAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805101913231_Test.cs" />
-    <Compile Include="DAL\RMSMigrations\201805101913231_Test.Designer.cs">
-      <DependentUpon>201805101913231_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.cs" />
-    <Compile Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.Designer.cs">
-      <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.cs" />
-    <Compile Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.Designer.cs">
-      <DependentUpon>201805171500236_DepartmentRelation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805180903263_User_instructor_2.cs" />
-    <Compile Include="DAL\RMSMigrations\201805180903263_User_instructor_2.Designer.cs">
-      <DependentUpon>201805180903263_User_instructor_2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805180908076_User_instructor_3.cs" />
-    <Compile Include="DAL\RMSMigrations\201805180908076_User_instructor_3.Designer.cs">
-      <DependentUpon>201805180908076_User_instructor_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805180931425_Changed.cs" />
-    <Compile Include="DAL\RMSMigrations\201805180931425_Changed.Designer.cs">
-      <DependentUpon>201805180931425_Changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805180936023_Changed-1.cs" />
-    <Compile Include="DAL\RMSMigrations\201805180936023_Changed-1.Designer.cs">
-      <DependentUpon>201805180936023_Changed-1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\201805180958312_Changed-2.cs" />
-    <Compile Include="DAL\RMSMigrations\201805180958312_Changed-2.Designer.cs">
-      <DependentUpon>201805180958312_Changed-2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RMSMigrations\Configuration.cs" />
+    <Compile Include="Controllers\TabulationSheetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,12 +262,38 @@
     <Compile Include="Migrations\201805241508062_DateTimeFixed.Designer.cs">
       <DependentUpon>201805241508062_DateTimeFixed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805250633253_SemesterAdded.cs" />
+    <Compile Include="Migrations\201805250633253_SemesterAdded.Designer.cs">
+      <DependentUpon>201805250633253_SemesterAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805252023320_Semester_Year.cs" />
+    <Compile Include="Migrations\201805252023320_Semester_Year.Designer.cs">
+      <DependentUpon>201805252023320_Semester_Year.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281144588_PromotionAndTranscript.cs" />
+    <Compile Include="Migrations\201805281144588_PromotionAndTranscript.Designer.cs">
+      <DependentUpon>201805281144588_PromotionAndTranscript.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281711428_ResultPublication.cs" />
+    <Compile Include="Migrations\201805281711428_ResultPublication.Designer.cs">
+      <DependentUpon>201805281711428_ResultPublication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281746054_ResultPublication2.cs" />
+    <Compile Include="Migrations\201805281746054_ResultPublication2.Designer.cs">
+      <DependentUpon>201805281746054_ResultPublication2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281810279_ResultPublication3.cs" />
+    <Compile Include="Migrations\201805281810279_ResultPublication3.Designer.cs">
+      <DependentUpon>201805281810279_ResultPublication3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InstructorIndexData.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MarkSheetViewModel.cs" />
     <Compile Include="Models\ResultViewModel.cs" />
+    <Compile Include="Models\TabulationSheetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -325,8 +311,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\durmstest - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\handsontable.full.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -377,26 +363,11 @@
     <Content Include="Views\RolesAdmin\Create.cshtml" />
     <Content Include="Views\RolesAdmin\Edit.cshtml" />
     <Content Include="Views\RolesAdmin\Delete.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Delete.cshtml" />
-    <Content Include="Views\Departments\Details.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Delete.cshtml" />
     <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
-    <Content Include="Views\Students\Create.cshtml" />
-    <Content Include="Views\Students\Delete.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
-    <Content Include="Views\Students\Edit.cshtml" />
-    <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Enrollments\Create.cshtml" />
-    <Content Include="Views\Enrollments\Delete.cshtml" />
-    <Content Include="Views\Enrollments\Details.cshtml" />
-    <Content Include="Views\Enrollments\Edit.cshtml" />
-    <Content Include="Views\Enrollments\Index.cshtml" />
     <Content Include="Views\Instructors\Create.cshtml" />
     <Content Include="Views\Instructors\Delete.cshtml" />
     <Content Include="Views\Instructors\Details.cshtml" />
@@ -407,18 +378,43 @@
     <Content Include="Views\MyCourses\StudentList.cshtml" />
     <Content Include="Views\MyCourses\Details.cshtml" />
     <Content Include="Views\Result\CheckResult.cshtml" />
-    <Content Include="Views\Result\Result.cshtml" />
     <Content Include="Views\HandsNotable\Index.cshtml" />
     <Content Include="Views\MyCourses\MarkSheet.cshtml" />
+    <Content Include="Views\MyCourses\Submit.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Index.cshtml" />
+    <Content Include="Views\Result\GenerateMarksheetIndex.cshtml" />
+    <Content Include="Views\Result\GenerateMarksheet.cshtml" />
     <Content Include="Views\Assignments\Index.cshtml" />
     <Content Include="Views\Assignments\Details.cshtml" />
     <Content Include="Views\Assignments\Create.cshtml" />
     <Content Include="Views\Assignments\Edit.cshtml" />
     <Content Include="Views\Assignments\Delete.cshtml" />
-    <Content Include="Views\MyCourses\Submit.cshtml" />
+    <Content Include="Views\TabulationSheet\Index.cshtml" />
+    <Content Include="Views\TabulationSheet\TabulationSheet.cshtml" />
+    <Content Include="Views\Result\Transcript.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\ResultPublications\Create.cshtml" />
+    <Content Include="Views\ResultPublications\Delete.cshtml" />
+    <Content Include="Views\ResultPublications\Details.cshtml" />
+    <Content Include="Views\ResultPublications\Edit.cshtml" />
+    <Content Include="Views\ResultPublications\Index.cshtml" />
+    <Content Include="Views\Enrollments\Create.cshtml" />
+    <Content Include="Views\Enrollments\Delete.cshtml" />
+    <Content Include="Views\Enrollments\Details.cshtml" />
+    <Content Include="Views\Enrollments\Edit.cshtml" />
+    <Content Include="Views\Enrollments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DAL\" />
     <Folder Include="MarkSheets\" />
   </ItemGroup>
   <ItemGroup>
@@ -435,36 +431,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805101822306_IntialCreate.resx">
-      <DependentUpon>201805101822306_IntialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805101908363_SomeDataValidationsAdded.resx">
-      <DependentUpon>201805101908363_SomeDataValidationsAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805101913231_Test.resx">
-      <DependentUpon>201805101913231_Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805101918368_FixNullableWithRequired.resx">
-      <DependentUpon>201805101918368_FixNullableWithRequired.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805171500236_DepartmentRelation.resx">
-      <DependentUpon>201805171500236_DepartmentRelation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805180903263_User_instructor_2.resx">
-      <DependentUpon>201805180903263_User_instructor_2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805180908076_User_instructor_3.resx">
-      <DependentUpon>201805180908076_User_instructor_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805180931425_Changed.resx">
-      <DependentUpon>201805180931425_Changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805180936023_Changed-1.resx">
-      <DependentUpon>201805180936023_Changed-1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DAL\RMSMigrations\201805180958312_Changed-2.resx">
-      <DependentUpon>201805180958312_Changed-2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804171413317_InitialCreate.resx">
       <DependentUpon>201804171413317_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -503,6 +469,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805241508062_DateTimeFixed.resx">
       <DependentUpon>201805241508062_DateTimeFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805250633253_SemesterAdded.resx">
+      <DependentUpon>201805250633253_SemesterAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805252023320_Semester_Year.resx">
+      <DependentUpon>201805252023320_Semester_Year.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281144588_PromotionAndTranscript.resx">
+      <DependentUpon>201805281144588_PromotionAndTranscript.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281711428_ResultPublication.resx">
+      <DependentUpon>201805281711428_ResultPublication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281746054_ResultPublication2.resx">
+      <DependentUpon>201805281746054_ResultPublication2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281810279_ResultPublication3.resx">
+      <DependentUpon>201805281810279_ResultPublication3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

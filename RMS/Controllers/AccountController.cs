@@ -192,45 +192,49 @@ namespace RMS.Controllers
                 user.Instructor = instructor;
                 
                 var result = await UserManager.CreateAsync(user, model.Password);
-                var roleResult = await UserManager.AddToRoleAsync(user.Id, "Instructor");
-                              
-                
-                
-                if (result.Succeeded && roleResult.Succeeded)
+                if(result.Succeeded)
                 {
-                    //  Comment the following line to prevent log in until the user is confirmed.
-                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var roleResult = await UserManager.AddToRoleAsync(user.Id, "Instructor");
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
+                    if (roleResult.Succeeded)
+                    {
+                        //  Comment the following line to prevent log in until the user is confirmed.
+                        //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // UnComment the following three if you don't want to use SendEmailConfirmationTokenAsync helper method
-                    
-                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
 
-                    // and Comment this
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+                        // UnComment the following three if you don't want to use SendEmailConfirmationTokenAsync helper method
 
-                    //Uncomment to debug locally 
-                    //TempData["ViewBagLink"] = callbackUrl;
+                        //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                         + "before you can log in.";
+                        // and Comment this
+                        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+
+                        //Uncomment to debug locally 
+                        //TempData["ViewBagLink"] = callbackUrl;
+
+                        ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                             + "before you can log in.";
 
 
 
-                    //  Comment the following line to prevent log in until the user is confirmed.
-                    //return RedirectToAction("Index", "Home");
+                        //  Comment the following line to prevent log in until the user is confirmed.
+                        //return RedirectToAction("Index", "Home");
 
-                    return View("Info");
-                }
+                        return View("Info");
+                    }
+
+                    AddErrors(roleResult);
+                }         
+                                
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View(model);
         }
 
