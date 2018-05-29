@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table ">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Department.Name)
@@ -46,9 +46,12 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Submitted)
+            @Html.DisplayNameFor(model => model.CESubmitted)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalSubmitted)
+        </th>
+        <th ></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -86,7 +89,10 @@
             @Html.DisplayFor(modelItem => item.FinalDeadLine)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Submitted)
+            @Html.DisplayFor(modelItem => item.CESubmitted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalSubmitted)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.AssignmentID }) |

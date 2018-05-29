@@ -53,8 +53,11 @@ namespace RMSDataModel
         
         public DateTime FinalDeadLine { get; set; }
 
-        [Display(Name = "Mark Submitted")]
-        public bool Submitted { get; set; }
+        [Display(Name = "CE Mark Submitted")]
+        public bool CESubmitted { get; set; }
+
+        [Display(Name = "Final Examination Mark Submitted")]
+        public bool FinalSubmitted { get; set; }
 
         public virtual Course Course { get; set; }
         public virtual Instructor Instructor { get; set; }

@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201805290810207_CE,Final_MArks_added.Designer.cs">
       <DependentUpon>201805290810207_CE,Final_MArks_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805292106169_BooleanAddedInAssignment.cs" />
+    <Compile Include="Migrations\201805292106169_BooleanAddedInAssignment.Designer.cs">
+      <DependentUpon>201805292106169_BooleanAddedInAssignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -304,6 +308,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dulogo.png" />
     <Content Include="Content\lumen-bootstrap.css" />
     <Content Include="Content\simplex-bootstrap.css" />
     <Content Include="favicon.ico" />
@@ -396,7 +401,6 @@
     <Content Include="Views\Assignments\Details.cshtml" />
     <Content Include="Views\Assignments\Create.cshtml" />
     <Content Include="Views\Assignments\Edit.cshtml" />
-    <Content Include="Views\Assignments\Delete.cshtml" />
     <Content Include="Views\TabulationSheet\Index.cshtml" />
     <Content Include="Views\TabulationSheet\TabulationSheet.cshtml" />
     <Content Include="Views\Result\Transcript.cshtml" />
@@ -415,6 +419,7 @@
     <Content Include="Views\Enrollments\Details.cshtml" />
     <Content Include="Views\Enrollments\Edit.cshtml" />
     <Content Include="Views\Enrollments\Index.cshtml" />
+    <Content Include="Views\Assignments\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -494,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805290810207_CE,Final_MArks_added.resx">
       <DependentUpon>201805290810207_CE,Final_MArks_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805292106169_BooleanAddedInAssignment.resx">
+      <DependentUpon>201805292106169_BooleanAddedInAssignment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

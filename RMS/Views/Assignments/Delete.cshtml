@@ -20,6 +20,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Instructor.Name)
         </dt>
 
@@ -47,9 +55,9 @@
             @Html.DisplayNameFor(model => model.MarksheetFileName)
         </dt>
 
-        @*<dd>
+        <dd>
             @Html.DisplayFor(model => model.MarksheetFileName)
-        </dd>*@
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.CETotal)
@@ -63,8 +71,12 @@
             @Html.DisplayNameFor(model => model.FinalExamTotal)
         </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.FinalExamTotal)
+        </dd>
+
         <dt>
-            @Html.DisplayNameFor(model => model.FinalExamTotal)
+            @Html.DisplayNameFor(model => model.CEDeadline)
         </dt>
 
         <dd>
@@ -80,11 +92,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Submitted)
+            @Html.DisplayNameFor(model => model.CESubmitted)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Submitted)
+            @Html.DisplayFor(model => model.CESubmitted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalSubmitted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalSubmitted)
         </dd>
 
     </dl>

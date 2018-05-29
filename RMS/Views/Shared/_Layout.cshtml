@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - RMS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="icon" href="@Url.Content("~/Content/dulogo.png")" type="image/x-icon"/>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,7 +30,8 @@
                         <li>@Html.ActionLink("Students", "Index", "Students")</li>
                         <li>@Html.ActionLink("Enrollments", "Index", "Enrollments")</li>
                         <li>@Html.ActionLink("Assignments", "Index", "Assignments")</li>
-                        <li>@Html.ActionLink("Results", "Index", "ResultPublications")</li>
+                        <li>@Html.ActionLink("PublishResult", "Index", "ResultPublications")</li>
+                        <li>@Html.ActionLink("TabulationSheet", "Index", "TabulationSheet")</li>
 
                     }
                     else if (User.IsInRole("Instructor"))

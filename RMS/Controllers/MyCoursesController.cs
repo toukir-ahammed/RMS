@@ -229,19 +229,37 @@ namespace RMS.Controllers
             
         }
 
-        public ActionResult Submit(List<string[]> dataListFromTable, int assignmentID)
+        public ActionResult Submit(List<string[]> dataListFromTable, int assignmentID, int id)
         {
             var assignment = db.Assignments.Find(assignmentID);
 
             if(assignment==null)
             {
-                ModelState.AddModelError("", "Assignment Not Found");
-                ViewBag.Title = "Error";
-                ViewBag.Message = "Assignment Not Found";
-                return View("Info");
-                //return Json("Response, Data Received Failed");
+                //ModelState.AddModelError("", "Assignment Not Found");
+                //ViewBag.Title = "Error";
+                //ViewBag.Message = "Assignment Not Found";
+                //return View("Info");
+                return Json("Assignment Not Found");
             }
 
+            if(id==1)
+            {
+                if(DateTime.Compare(assignment.CEDeadline,DateTime.Now) < 0)
+                {
+                    return Json("Continuous Mark Submission Deadline Is Over");
+                }
+            }
+            else if(id ==2 )
+            {
+                if (DateTime.Compare(assignment.FinalDeadLine, DateTime.Now) < 0)
+                {
+                    return Json("Final Examination Mark Submission Deadline Is Over");
+                }
+            }
+            else
+            {
+                return Json("Invalid id");
+            }
             //var enrollments = db.Enrollments
             //    .Where(e => e.Student.DepartmentId == assignment.DepartmentID
             //    && e.Semester == assignment.Semester
@@ -251,8 +269,9 @@ namespace RMS.Controllers
             foreach(var row in dataListFromTable)
             {
                 var registrationNo = row[0];
-                var CETotal = Convert.ToDouble(row[1]);
-                var FinalExamTotal = Convert.ToDouble(row[2]);
+                //var CETotal = Convert.ToDouble(row[1]);
+                //var FinalExamTotal = Convert.ToDouble(row[2]);
+                var mark = Convert.ToDouble(row[1]);
 
                 var enrollment = db.Enrollments.
                     Where(e => e.Student.RegistrationNumber == registrationNo
@@ -261,16 +280,48 @@ namespace RMS.Controllers
                     && e.CourseID == assignment.CourseID).FirstOrDefault();
                 if(enrollment == null)
                 {
-                    ModelState.AddModelError("", "Assignment Not Found");
-                    ViewBag.Title = "Error";
-                    ViewBag.Message = "Enrollment Not Found for Registration No." + registrationNo;
-                    return View("Info");
+                    //ModelState.AddModelError("", "Assignment Not Found");
+                    //ViewBag.Title = "Error";
+                    //ViewBag.Message = "Enrollment Not Found for Registration No." + registrationNo;
+                    //return View("Info");
+                    return Json("No enrollment found for Registraion Number: " + registrationNo
+                        + "\nMark Submission Failed");
                 }
 
-                enrollment.CEMark = CETotal;
-                enrollment.FinalMark = FinalExamTotal;
+                if(id == 1)
+                {
+                    if(mark > assignment.CETotal)
+                    {
+                        return Json("Continuous Evalution marks should be within " + assignment.CETotal);
+                    }
+                    enrollment.CEMark = mark;
+                }
+                else if(id ==2 )
+                {
+                    if (mark > assignment.FinalExamTotal)
+                    {
+                        return Json("Continuous Evalution marks should be within " + assignment.FinalExamTotal);
+                    }
+                    enrollment.FinalMark = mark;
+                    
+                }
+                //enrollment.CEMark = CETotal;
+                //enrollment.FinalMark = FinalExamTotal;
                 db.Entry(enrollment).State = EntityState.Modified;
                 //    db.SaveChanges();
+
+            }
+
+            if (id == 1)
+            {
+                assignment.CESubmitted = true;
+                db.Entry(assignment).State = EntityState.Modified;
+
+            }
+            if (id==2)
+            {
+                assignment.FinalSubmitted = true;
+                db.Entry(assignment).State = EntityState.Modified;
 
             }
 
@@ -372,7 +423,7 @@ namespace RMS.Controllers
 
             //}
 
-            return Json("Response, Data Received Successfully");
+            return Json("Marks Submitted Successfully");
             //return View();
         }
 

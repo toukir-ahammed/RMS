@@ -66,26 +66,46 @@ namespace RMS.Controllers
                 }
 
                 
-                HashSet<string> notSubmittedCourses = new HashSet<string>();
+                HashSet<string> CENotSubmittedCourses = new HashSet<string>();
+                HashSet<string> FinalSubmittedCourses = new HashSet<string>();
                 foreach (var assignment in assignments)
                 {
-                    if (!assignment.Submitted)
+                    if (!assignment.CESubmitted)
                     {
-                        notSubmittedCourses.Add(assignment.Course.Title);
+                        CENotSubmittedCourses.Add(assignment.Course.Title);
+                        //ModelState.AddModelError("", "Marks of " + enrollment.Course.Title + " is not submitted yet");
+
+                    }
+                    if (!assignment.FinalSubmitted)
+                    {
+                        FinalSubmittedCourses.Add(assignment.Course.Title);
                         //ModelState.AddModelError("", "Marks of " + enrollment.Course.Title + " is not submitted yet");
 
                     }
                 }
 
-                if (notSubmittedCourses.Count != 0)
+                if (CENotSubmittedCourses.Count != 0)
                 {
-                    ModelState.AddModelError("", "The following courses marks are not submitted yet:\n");
-                    foreach (var course in notSubmittedCourses)
+                    ModelState.AddModelError("", "The following courses' continuos evalution marks are not submitted yet:\n");
+                    foreach (var course in CENotSubmittedCourses)
                     {
                         ModelState.AddModelError("", course + "\n");
                     }
+                    
+                }
+                if (FinalSubmittedCourses.Count != 0)
+                {
+                    ModelState.AddModelError("", "The following courses' final marks are not submitted yet:\n");
+                    foreach (var course in FinalSubmittedCourses)
+                    {
+                        ModelState.AddModelError("", course + "\n");
+                    }
+                }
+                if(CENotSubmittedCourses.Count != 0 || FinalSubmittedCourses.Count != 0)
+                {
                     return View(resultPublication);
                 }
+                
 
                 db.ResultPublications.Add(resultPublication);
                 db.SaveChanges();
