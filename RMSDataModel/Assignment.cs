@@ -24,7 +24,19 @@ namespace RMSDataModel
         [Range(1900,2100)]
         public int CalenderYear { get; set; }
 
+        
+        [Display(Name = "Marksheet file name")]
         public string MarksheetFileName { get; set; }
+
+        [Required]
+        [Display(Name = "Continuous Evalution Total Mark")]
+        [Range(0,100)]
+        public double CETotal { get; set; }
+
+        [Required]
+        [Display(Name = "Final Examination Total Mark")]
+        [Range(0,100)]
+        public double FinalExamTotal { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

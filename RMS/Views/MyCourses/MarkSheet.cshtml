@@ -30,6 +30,13 @@
 <script src="http://handsontable.github.io/handsontable-ruleJS/lib/RuleJS/js/ruleJS.js"></script>
 <script src="http://handsontable.github.io/handsontable-ruleJS/lib/handsontable/handsontable.formula.js"></script>
 -->
+
+<script type="text/javascript">
+    
+    function idOf(i) {
+        return (i >= 26 ? idOf((i / 26 >> 0) - 1) : '') + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i % 26 >> 0];
+    }
+</script>
 <!--
     <div class="top">
      <p>Course Name : Design Pattern</p>
@@ -156,6 +163,11 @@
             <div class="ajax-container">
                 <div class="controls">
                     <button class="intext-btn btn btn-primary center-block"
+                            id="submit" name="submit">
+                        Submit
+                    </button>
+
+                    <button class="intext-btn btn btn-primary center-block"
                             id="load" name="load">
                         Load
                     </button>
@@ -168,6 +180,7 @@
                                checked="checked" id="autosave"
                                name="autosave">Autosave
                     </label>
+
                 </div>
                 <pre class="console"
                      id="example1console">Click "Load" to load data from server</pre>
@@ -306,6 +319,66 @@
                 exampleConsole.innerHTML = 'Changes will not be autosaved';
             }
         });
+
+        Handsontable.Dom.addEvent(submit, 'click', function () {
+            var data = hot.getData();
+            //var data2 = submitdata(data);
+           // alert("hello")
+            var cc=0, fl=0, cl=0;
+            for (var i = 0; i < data[0].length; i++) {
+                if (data[0][i].toLowerCase() == 'ce total') cc = i;
+                if (data[0][i].toLowerCase() == 'final exam total') fl = i;
+                if (data[0][i].toLowerCase() == 'registration no.') cl = i;
+            }
+            
+            //alert("hello");
+            /* var j =3;
+             var te = idOf(cc)+j;
+             var te1 = idOf(fl)+j;
+             var temp = hot.plugin.helper.cellValue(te);
+             var temp1 = hot.plugin.helper.cellValue(te1);
+             alert(temp);
+             */
+            //alert( idOf(fl)+i +"  "+ temp+ "  "+temp1);
+            var mark = [];
+            //var continuousmark = [];
+            for (var i = 2; i < data.length; i++) {
+                var temp = hot.plugin.helper.cellValue(idOf(cc) + i);
+                var temp1 = hot.plugin.helper.cellValue(idOf(fl) + i);
+                var temp2 = hot.plugin.helper.cellValue(idOf(cl) + i);
+                //alert(temp2);
+                var rowmark = [];
+                rowmark.push(temp2);
+                rowmark.push(temp);
+                rowmark.push(temp1);
+                //continuousmark.push(temp);
+                mark.push(rowmark);
+            }
+            
+
+           // alert(mark);
+            jQuery.ajax({
+                //url: '/MyCourses/Save',
+                url: '@Url.Action("Submit", "MyCourses")',
+                type: "POST",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                //data: da,
+                data: JSON.stringify({ dataListFromTable: mark, assignmentID: @ViewBag.assignmentID}),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    exampleConsole.innerHTML = 'Data Submitted';
+                    //alert(data);
+                },
+                error: function (xhr) {
+                    exampleConsole.innerHTML = 'Submit error';
+                    //alert('error');
+                }
+            });
+        });
+
     });
 
 </script>

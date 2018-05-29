@@ -41,7 +41,7 @@ namespace RMS.Controllers
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title");
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            //ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             ViewBag.StudentId = new SelectList(db.Students, "ID", "Name");
             return View();
         }

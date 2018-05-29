@@ -26,9 +26,18 @@
         <th>
             @Html.DisplayNameFor(model => model.CalenderYear)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.MarksheetFileName)
+            @Html.DisplayNameFor(model => model.CETotal)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FinalExamTotal)
+        </th>
+
+        @*<th>
+            @Html.DisplayNameFor(model => model.MarksheetFileName)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CEDeadline)
         </th>
@@ -59,9 +68,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.CalenderYear)
         </td>
-        <td>
+
+        <th>
+            @Html.DisplayFor(modelItem => item.CETotal)
+        </th>
+
+        <th>
+            @Html.DisplayFor(modelItem => item.FinalExamTotal)
+        </th>
+        @*<td>
             @Html.DisplayFor(modelItem => item.MarksheetFileName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CEDeadline)
         </td>

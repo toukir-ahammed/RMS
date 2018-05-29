@@ -54,7 +54,7 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,CEDeadline,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
+        public ActionResult Create([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,CEDeadline,CETotal,FinalExamTotal,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
         {
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", assignment.CourseID);
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", assignment.DepartmentID);
@@ -76,7 +76,9 @@ namespace RMS.Controllers
                 var enrollments = db.Enrollments
                 .Where(e => e.Student.DepartmentId == assignment.DepartmentID
                 && e.Semester == assignment.Semester
-                && e.CalenderYear == assignment.CalenderYear).ToList();
+                && e.CalenderYear == assignment.CalenderYear
+                && e.CourseID == assignment.CourseID).ToList();
+
 
                 if (!enrollments.Any())
                 {
@@ -86,7 +88,11 @@ namespace RMS.Controllers
 
                 List<string[]> studentList = new List<string[]>();
 
-                studentList.Add(new string[] { "Registration No.", "Exam Roll", "Name" });
+                studentList.Add(new string[] 
+                {
+                    "Registration No.", "Exam Roll", "Name", "Attendance", "Class Test", "Midterm",
+                    "Lab", "CE Total", "Final Exam Total", "Total"
+                });
                 foreach (var item in enrollments)
                 {
                     studentList.Add(new string[]
@@ -145,10 +151,11 @@ namespace RMS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,,CEDeadline,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
+        public ActionResult Edit([Bind(Include = "AssignmentID,InstructorID,CourseID,Semester,CalenderYear,CETotal,FinalExamTotal,CEDeadline,FinalDeadLine,Submitted,DepartmentID")] Assignment assignment)
         {
             if (ModelState.IsValid)
             {
+                //TODO Marksheet file name will be null after edit
                 db.Entry(assignment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

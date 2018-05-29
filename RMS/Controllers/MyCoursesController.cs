@@ -191,44 +191,7 @@ namespace RMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //Course course = db.Courses.Find(courseID);
-            //if (course == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            //var enrollments = course.Enrollments;
-            //var assignments = course.Assignments.FirstOrDefault();
-
-
-            ////Alternative
-            ////var enrollments = db.Courses
-            ////    .Where(x => x.CourseID == courseID)
-            ////    .Single().Enrollments;
-            //if (enrollments == null || assignments == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            //List<string[]> studentList = new List<string[]>();
-
-            //foreach(var item in enrollments)
-            //{
-            //    studentList.Add(new string[] { item.Student.RegistrationNumber, item.Student.Name, "", "" });
-            //}
-
-            ////RedirectToAction("Save", studentList);
-            //string path = Server.MapPath("~/Marksheets/" + assignments.MarksheetFileName);
-            //using (StreamWriter file = System.IO.File.CreateText(path))
-            //{
-            //    JsonSerializer serializer = new JsonSerializer();
-            //    serializer.Serialize(file, studentList);
-            //}
-
-            ////ViewBag.CourseName = course.Title;
-
-            ////return View(enrollments);
-
+            
             ViewBag.assignmentID = assignmentID;
             return View();
         }
@@ -266,105 +229,151 @@ namespace RMS.Controllers
             
         }
 
-        public ActionResult Submit(int? assignmentID, int? id)
+        public ActionResult Submit(List<string[]> dataListFromTable, int assignmentID)
         {
-            if(assignmentID==null || id == null)
+            var assignment = db.Assignments.Find(assignmentID);
+
+            if(assignment==null)
             {
-                return HttpNotFound();
+                ModelState.AddModelError("", "Assignment Not Found");
+                ViewBag.Title = "Error";
+                ViewBag.Message = "Assignment Not Found";
+                return View("Info");
+                //return Json("Response, Data Received Failed");
             }
+
+            //var enrollments = db.Enrollments
+            //    .Where(e => e.Student.DepartmentId == assignment.DepartmentID
+            //    && e.Semester == assignment.Semester
+            //    && e.CalenderYear == assignment.CalenderYear
+            //    && e.CourseID == assignment.CourseID).ToList();
+
+            foreach(var row in dataListFromTable)
+            {
+                var registrationNo = row[0];
+                var CETotal = Convert.ToDouble(row[1]);
+                var FinalExamTotal = Convert.ToDouble(row[2]);
+
+                var enrollment = db.Enrollments.
+                    Where(e => e.Student.RegistrationNumber == registrationNo
+                    && e.Student.DepartmentId == assignment.DepartmentID
+                    && e.CalenderYear == assignment.CalenderYear
+                    && e.CourseID == assignment.CourseID).FirstOrDefault();
+                if(enrollment == null)
+                {
+                    ModelState.AddModelError("", "Assignment Not Found");
+                    ViewBag.Title = "Error";
+                    ViewBag.Message = "Enrollment Not Found for Registration No." + registrationNo;
+                    return View("Info");
+                }
+
+                enrollment.CEMark = CETotal;
+                enrollment.FinalMark = FinalExamTotal;
+                db.Entry(enrollment).State = EntityState.Modified;
+                //    db.SaveChanges();
+
+            }
+
+            db.SaveChanges();
+
+
+
+
+
+
 
             //var userID = User.Identity.GetUserId();
             //var user = db.Users.Find(userID);
             //var assignments = user.Instructor.Assignments
             //    .Where(i => i.CourseID == courseID).FirstOrDefault();
 
-            var assignment = db.Assignments.Find(assignmentID);
+            //var assignment = db.Assignments.Find(assignmentID);
 
-            if(assignment==null)
-            {
-                return HttpNotFound();
-            }
+            //if(assignment==null)
+            //{
+            //    return HttpNotFound();
+            //}
 
-            List<string[]> jsonData;
+            //List<string[]> jsonData;
 
-            string path = Server.MapPath("~/MarkSheets/");
-            path = Path.Combine(path, assignment.MarksheetFileName);
+            //string path = Server.MapPath("~/MarkSheets/");
+            //path = Path.Combine(path, assignment.MarksheetFileName);
 
-            using (StreamReader file = System.IO.File.OpenText(path))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                jsonData = (List<string[]>)serializer.Deserialize(file, typeof(List<string[]>));
-            }
+            //using (StreamReader file = System.IO.File.OpenText(path))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    jsonData = (List<string[]>)serializer.Deserialize(file, typeof(List<string[]>));
+            //}
 
-            int CEColumn=-1, FinalColumn=-1;
+            //int CEColumn=-1, FinalColumn=-1;
 
-            for(int i=0; i<jsonData[0].Length; i++)
-            {
-                if(jsonData[0][i].ToLower()=="cetotal")
-                {
-                    CEColumn = i;
-                }
+            //for(int i=0; i<jsonData[0].Length; i++)
+            //{
+            //    if(jsonData[0][i].ToLower()=="cetotal")
+            //    {
+            //        CEColumn = i;
+            //    }
 
-                if(jsonData[0][i].ToLower() == "finaltotal")
-                {
-                    FinalColumn = i;
-                }
-            }
-
-
-
-            Course course = db.Courses.Find(assignment.CourseID);
-
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-
-            var enrollments = course.Enrollments;
+            //    if(jsonData[0][i].ToLower() == "finaltotal")
+            //    {
+            //        FinalColumn = i;
+            //    }
+            //}
 
 
-            //Alternative
-            //var enrollments = db.Courses
-            //    .Where(x => x.CourseID == courseID)
-            //    .Single().Enrollments;
-            if (enrollments == null)
-            {
-                return HttpNotFound();
-            }
 
-            foreach(var item in enrollments)
-            {
-                
-            }
+            //Course course = db.Courses.Find(assignment.CourseID);
 
-            for(int i=1; i<jsonData.Count; i++)
-            {
-                //if (jsonData[i][0] == null || jsonData[i][1] == "") continue;
+            //if (course == null)
+            //{
+            //    return HttpNotFound();
+            //}
 
-                var regNo = jsonData[i][0];
-                var ceMark = Convert.ToDouble(jsonData[i][CEColumn]);
-                var finalMark = Convert.ToDouble(jsonData[i][FinalColumn]);
-
-                var student = db.Students
-                    .Where(s => s.RegistrationNumber == regNo).FirstOrDefault();
-
-                if (student == null) continue;
-                var enrollment = db.Enrollments
-                    .Where(s => (s.StudentId == student.ID && s.CourseID == assignment.CourseID))
-                    .FirstOrDefault();
-
-                if (enrollment == null) continue;
-
-                enrollment.CEMark = ceMark;
-                enrollment.FinalMark = finalMark;
-                db.Entry(enrollment).State = EntityState.Modified;
-                db.SaveChanges();
+            //var enrollments = course.Enrollments;
 
 
-            }
+            ////Alternative
+            ////var enrollments = db.Courses
+            ////    .Where(x => x.CourseID == courseID)
+            ////    .Single().Enrollments;
+            //if (enrollments == null)
+            //{
+            //    return HttpNotFound();
+            //}
 
-            
-            return View();
+            //foreach(var item in enrollments)
+            //{
+
+            //}
+
+            //for(int i=1; i<jsonData.Count; i++)
+            //{
+            //    //if (jsonData[i][0] == null || jsonData[i][1] == "") continue;
+
+            //    var regNo = jsonData[i][0];
+            //    var ceMark = Convert.ToDouble(jsonData[i][CEColumn]);
+            //    var finalMark = Convert.ToDouble(jsonData[i][FinalColumn]);
+
+            //    var student = db.Students
+            //        .Where(s => s.RegistrationNumber == regNo).FirstOrDefault();
+
+            //    if (student == null) continue;
+            //    var enrollment = db.Enrollments
+            //        .Where(s => (s.StudentId == student.ID && s.CourseID == assignment.CourseID))
+            //        .FirstOrDefault();
+
+            //    if (enrollment == null) continue;
+
+            //    enrollment.CEMark = ceMark;
+            //    enrollment.FinalMark = finalMark;
+            //    db.Entry(enrollment).State = EntityState.Modified;
+            //    db.SaveChanges();
+
+
+            //}
+
+            return Json("Response, Data Received Successfully");
+            //return View();
         }
 
     }
