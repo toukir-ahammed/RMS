@@ -58,7 +58,7 @@ namespace RMS.Controllers
                 var assignments = db.Assignments
                     .Where(e => e.DepartmentID == resultPublication.DepartmentID
                     && e.Semester == resultPublication.Semester
-                    && e.CalenderYear == resultPublication.CalenderYear);
+                    && e.CalenderYear == resultPublication.CalenderYear).ToList();
                 if (!assignments.Any())
                 {
                     ModelState.AddModelError("", "Can not calculate the result. No enrollments found");

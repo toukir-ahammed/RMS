@@ -30,11 +30,16 @@
                         <li>@Html.ActionLink("Students", "Index", "Students")</li>
                         <li>@Html.ActionLink("Enrollments", "Index", "Enrollments")</li>
                         <li>@Html.ActionLink("Assignments", "Index", "Assignments")</li>
+                        <li>@Html.ActionLink("Results", "Index", "ResultPublications")</li>
 
                     }
                     else if (User.IsInRole("Instructor"))
                     {
                         <li>@Html.ActionLink("My Courses", "Index", "MyCourses")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Results", "Index", "Result")</li>
                     }
 
                     @*Uncomment to add About and Contact*@

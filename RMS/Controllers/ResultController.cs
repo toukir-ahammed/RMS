@@ -68,6 +68,7 @@ namespace RMS.Controllers
             var publicationDate = resultPublications.PublicationDate;
             var currentDate = DateTime.Now;
 
+
             if(DateTime.Compare(publicationDate,currentDate) > 0 )
             {
                 ModelState.AddModelError("", "Result will be published at " + publicationDate.ToString("MMMM dd, yyyy"));
@@ -79,7 +80,7 @@ namespace RMS.Controllers
             viewmodel.Student = student;
 
             var enrollments = db.Enrollments
-                .Where(e => e.StudentId == student.ID && e.Semester == model.Semester);
+                .Where(e => e.StudentId == student.ID && e.Semester == model.Semester).ToList();
             
 
             if(!enrollments.Any())

@@ -33,7 +33,7 @@ namespace RMS.Controllers
 
             var students = db.Students
                 .Where(s => s.Semester == model.Semester);
-            return View(students);
+            return View(students.ToList());
         }
 
     }

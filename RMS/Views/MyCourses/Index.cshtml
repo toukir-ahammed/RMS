@@ -28,6 +28,18 @@
             @Html.DisplayNameFor(model => model.Course.Credits)
         </th>
 
+        <th>
+            @Html.DisplayNameFor(model => model.CalenderYear)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CEDeadline)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FinalDeadLine)
+        </th>
+
         <th></th>
     </tr>
 
@@ -50,12 +62,24 @@
         </td>
 
         <td>
+            @Html.DisplayFor(modelItem => item.CalenderYear)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CEDeadline)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalDeadLine)
+        </td>
+
+        <td>
             @Html.ActionLink("Details", "Details", new { courseID = item.CourseID }) |
             @Html.ActionLink("Students", "StudentList", new { courseID = item.CourseID }) |
             @Html.ActionLink("MarkSheet", "MarkSheet", new { assignmentID = item.AssignmentID })
             @*@Html.ActionLink("Edit", "Edit", new { id = item.AssignmentID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.AssignmentID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentID })*@
+            @Html.ActionLink("Details", "Details", new { id = item.AssignmentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.AssignmentID })*@
         </td>
     </tr>
 }
