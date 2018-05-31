@@ -12,7 +12,6 @@ namespace RMSDataModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Course Code")]
-        [RegularExpression("A-Za-z0-9", ErrorMessage = "Course code must be alphaneumeric")]
         public int CourseID { get; set; }
 
         [Required]

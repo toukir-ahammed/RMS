@@ -47,31 +47,35 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Assignment.Instructor.Name)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Instructor.Name)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Assignment.Course.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Assignment.Department.Name)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Course.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Department.Name)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Assignment.Semester)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Semester)
+            </td>
 
 
 
-        <td>
-            @Html.DisplayFor(modelItem => item.LogMessage)
-        </td>
-    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogMessage)
+            </td>
+        </tr>
     }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

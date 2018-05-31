@@ -436,7 +436,7 @@ namespace RMS.Controllers
 
             //genArray();
             ArrayList log = new ArrayList();
-            String[] header = new String[oldValue[0].Length];
+            String[] header = new String[oldValue[0].Length+5];
 
             //foreach(var row in )
 
@@ -452,7 +452,7 @@ namespace RMS.Controllers
                 {
                     String old = a[i][j];
                     String ne = b[i][j];
-                    if (old == null || ne == null) continue;
+                  //  if (old == null || ne == null) continue;
                     if (!old.Equals(ne))
                     {
                         String changecol = header[j];

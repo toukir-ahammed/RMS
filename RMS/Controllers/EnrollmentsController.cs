@@ -98,7 +98,7 @@ namespace RMS.Controllers
                     break;
             }
 
-            int pageSize = 10;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(enrollments.ToPagedList(pageNumber, pageSize));
         }
