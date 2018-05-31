@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace RMS.Controllers
 {
+
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller
     {

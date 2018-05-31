@@ -7,6 +7,7 @@ using System.Web.Services;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HandsNotableController : Controller
     {
 

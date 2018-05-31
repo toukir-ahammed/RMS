@@ -11,6 +11,7 @@ using RMSDataModel;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ResultPublicationsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

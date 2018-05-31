@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TabulationSheetController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

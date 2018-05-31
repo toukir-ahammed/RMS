@@ -12,6 +12,7 @@ using PagedList;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class LogsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

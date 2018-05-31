@@ -139,20 +139,20 @@ namespace RMS.Controllers
             return View("Transcript", viewmodel);
         }
 
-        public ActionResult Download(string file)
-        {
-            if (!System.IO.File.Exists(file))
-            {
-                return HttpNotFound();
-            }
+        //public ActionResult Download(string file)
+        //{
+        //    if (!System.IO.File.Exists(file))
+        //    {
+        //        return HttpNotFound();
+        //    }
 
-            var fileBytes = System.IO.File.ReadAllBytes(file);
-            var response = new FileContentResult(fileBytes, "application/octet-stream")
-            {
-                FileDownloadName = "loremIpsum.pdf"
-            };
-            return response;
-        }
+        //    var fileBytes = System.IO.File.ReadAllBytes(file);
+        //    var response = new FileContentResult(fileBytes, "application/octet-stream")
+        //    {
+        //        FileDownloadName = "loremIpsum.pdf"
+        //    };
+        //    return response;
+        //}
 
         private void GeneratePdf(MarkSheetViewModel viewmodel)
         {

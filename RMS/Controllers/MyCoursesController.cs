@@ -15,6 +15,7 @@ using System.Collections;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Instructor")]
     public class MyCoursesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

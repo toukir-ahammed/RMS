@@ -12,6 +12,7 @@ using RMSDataModel;
 
 namespace RMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EnrollmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
