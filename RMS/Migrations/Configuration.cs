@@ -57,16 +57,16 @@ namespace RMS.Migrations
 
             var departments = new List<Department>
             {
-                new Department { Name = "IIT"},
-                new Department { Name = "CSE"},
-                new Department { Name = "Statistics"},
-                new Department { Name = "Pharmacy"},
-                new Department { Name = "IBA"},
-                new Department { Name = "Genetics"},
-                new Department { Name = "Microbiology"},
-                new Department { Name = "English"},
-                new Department { Name = "Mathematics"},
-                new Department { Name = "Economics"}
+                new Department { Name = "IIT", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "CSE", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Statistics", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Pharmacy", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "IBA", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Genetics", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Microbiology", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "English", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Mathematics", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00},
+                new Department { Name = "Economics", LeastCGPAToPass = 2.50, LeastGPToPass = 2.00}
             };
             departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
             context.SaveChanges();
@@ -76,17 +76,17 @@ namespace RMS.Migrations
             var students = new List<Student>
             {
                 new Student { Name = "Toukir Ahammed",  ClassRoll = 806, ExamRoll = 822,
-                    RegistrationNumber = "201531800", Session = "2015-16" },
+                    RegistrationNumber = "201531800", Session = "2015-16", DepartmentId = 7 },
                 new Student { Name = "Tahmid Khan",  ClassRoll = 801, ExamRoll = 801,
-                    RegistrationNumber = "201531801", Session = "2015-16" },
+                    RegistrationNumber = "201531801", Session = "2015-16", DepartmentId = 7 },
                 new Student { Name = "Iftekhar Jamil",  ClassRoll = 802, ExamRoll = 802,
-                    RegistrationNumber = "201531802", Session = "2015-16" },
+                    RegistrationNumber = "201531802", Session = "2015-16" , DepartmentId = 7 },
                 new Student { Name = "Tahlil",  ClassRoll = 803, ExamRoll = 803,
-                    RegistrationNumber = "201531803", Session = "2015-16" },
+                    RegistrationNumber = "201531803", Session = "2015-16" , DepartmentId = 7 },
                 new Student { Name = "Abdullah Al Jubaer",  ClassRoll = 812, ExamRoll = 823,
-                    RegistrationNumber = "201531805", Session = "2015-16" },
+                    RegistrationNumber = "201531805", Session = "2015-16" , DepartmentId = 7 },
                 new Student { Name = "Aba Kowser",  ClassRoll = 825, ExamRoll = 825,
-                    RegistrationNumber = "201531809", Session = "2015-16" }
+                    RegistrationNumber = "201531809", Session = "2015-16" , DepartmentId = 7 }
             };
 
             students.ForEach(s => context.Students.AddOrUpdate(p => p.Name, s));

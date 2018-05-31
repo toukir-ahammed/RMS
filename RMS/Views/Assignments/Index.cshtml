@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<RMSDataModel.Assignment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Assignment List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-md", role = "button" })
 </p>
 <table class="table ">
     <tr>

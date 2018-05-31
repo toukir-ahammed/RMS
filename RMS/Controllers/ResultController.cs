@@ -134,7 +134,47 @@ namespace RMS.Controllers
             viewmodel.TotalCredits = TotalCredits;
             viewmodel.TotalObtainedCredits = ObtainedCredits;
 
+            GeneratePdf(viewmodel);
+
             return View("Transcript", viewmodel);
+        }
+
+        public ActionResult Download(string file)
+        {
+            if (!System.IO.File.Exists(file))
+            {
+                return HttpNotFound();
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(file);
+            var response = new FileContentResult(fileBytes, "application/octet-stream")
+            {
+                FileDownloadName = "loremIpsum.pdf"
+            };
+            return response;
+        }
+
+        private void GeneratePdf(MarkSheetViewModel viewmodel)
+        {
+            List<string[]> pdfData = new List<string[]>();
+
+            foreach(var enrollment in viewmodel.Enrollments)
+            {
+                pdfData.Add(new string[]
+                { enrollment.CourseID.ToString(), enrollment.Course.Title,
+                enrollment.Course.Credits.ToString(), enrollment.Grade, enrollment.GradePoint.ToString() 
+                });
+            }
+            String registrationNumber = viewmodel.Student.RegistrationNumber;
+            String studentname = viewmodel.Student.Name;
+            String examName = viewmodel.Student.ExamRoll.ToString();
+            String semester = viewmodel.Semester.ToString();
+            //new PDFGenerator(pdfData.ToArray(),registrationNumber,examName,studentname,semester);
+            new PDFGenerator(pdfData.ToArray(), viewmodel.Student);
+
+
+
+
         }
 
         //public ActionResult GenerateMarksheetIndex()
@@ -151,7 +191,7 @@ namespace RMS.Controllers
         //    model.Courses = db.Courses;
 
         //    model.Enrollments = db.Enrollments;
-             
+
 
 
         //    return View(model);

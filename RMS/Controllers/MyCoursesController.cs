@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Data.Entity;
+using System.Collections;
 
 namespace RMS.Controllers
 {
@@ -41,7 +42,7 @@ namespace RMS.Controllers
             }
 
             //var courses = instructor.Courses;
-            
+
             //var courses = db.Instructors
             //    .Where(i => i.ID == instructorId).Single().Courses;
 
@@ -71,7 +72,7 @@ namespace RMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             Course course = db.Courses.Find(courseID);
             if (course == null)
             {
@@ -135,21 +136,7 @@ namespace RMS.Controllers
         public ActionResult Save(List<string[]> dataListFromTable, int assignmentID)
         {
 
-            //System.IO.File.WriteAllText(@"c:\movie.json", JsonConvert.SerializeObject(dataListFromTable.ToArray()));
 
-            // serialize JSON directly to a file
-
-            //if (courseID == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-            //TO DO Refactor
-            //Course course = db.Courses.Find(courseID);
-            //if (course == null)
-            //{
-            //    return HttpNotFound();
-            //}
 
             var assignment = db.Assignments.Find(assignmentID);
 
@@ -158,8 +145,21 @@ namespace RMS.Controllers
                 return HttpNotFound();
             }
 
+
+
             string path = Server.MapPath("~/MarkSheets/");
             path = Path.Combine(path, assignment.MarksheetFileName);
+
+            List<string[]> oldData;
+
+
+            using (StreamReader file = System.IO.File.OpenText(path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                oldData = (List<string[]>)serializer.Deserialize(file, typeof(List<string[]>));
+            }
+
+            SaveLog(oldData, dataListFromTable, assignment);
 
             using (StreamWriter file = System.IO.File.CreateText(path))
             {
@@ -191,7 +191,7 @@ namespace RMS.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            
+
             ViewBag.assignmentID = assignmentID;
             return View();
         }
@@ -201,13 +201,13 @@ namespace RMS.Controllers
         // GET: MyCourses/StudentList
         public ActionResult StudentList(int? courseID)
         {
-            if(courseID == null)
+            if (courseID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             Course course = db.Courses.Find(courseID);
-            if(course == null)
+            if (course == null)
             {
                 return HttpNotFound();
             }
@@ -226,14 +226,14 @@ namespace RMS.Controllers
             ViewBag.CourseName = course.Title;
 
             return View(enrollments);
-            
+
         }
 
         public ActionResult Submit(List<string[]> dataListFromTable, int assignmentID, int id)
         {
             var assignment = db.Assignments.Find(assignmentID);
 
-            if(assignment==null)
+            if (assignment == null)
             {
                 //ModelState.AddModelError("", "Assignment Not Found");
                 //ViewBag.Title = "Error";
@@ -242,14 +242,14 @@ namespace RMS.Controllers
                 return Json("Assignment Not Found");
             }
 
-            if(id==1)
+            if (id == 1)
             {
-                if(DateTime.Compare(assignment.CEDeadline,DateTime.Now) < 0)
+                if (DateTime.Compare(assignment.CEDeadline, DateTime.Now) < 0)
                 {
                     return Json("Continuous Mark Submission Deadline Is Over");
                 }
             }
-            else if(id ==2 )
+            else if (id == 2)
             {
                 if (DateTime.Compare(assignment.FinalDeadLine, DateTime.Now) < 0)
                 {
@@ -266,19 +266,21 @@ namespace RMS.Controllers
             //    && e.CalenderYear == assignment.CalenderYear
             //    && e.CourseID == assignment.CourseID).ToList();
 
-            foreach(var row in dataListFromTable)
+            foreach (var row in dataListFromTable)
             {
+                if (row[0] == "" || row[0] == "0" || row[1] == "") continue;
                 var registrationNo = row[0];
                 //var CETotal = Convert.ToDouble(row[1]);
                 //var FinalExamTotal = Convert.ToDouble(row[2]);
                 var mark = Convert.ToDouble(row[1]);
+
 
                 var enrollment = db.Enrollments.
                     Where(e => e.Student.RegistrationNumber == registrationNo
                     && e.Student.DepartmentId == assignment.DepartmentID
                     && e.CalenderYear == assignment.CalenderYear
                     && e.CourseID == assignment.CourseID).FirstOrDefault();
-                if(enrollment == null)
+                if (enrollment == null)
                 {
                     //ModelState.AddModelError("", "Assignment Not Found");
                     //ViewBag.Title = "Error";
@@ -288,22 +290,22 @@ namespace RMS.Controllers
                         + "\nMark Submission Failed");
                 }
 
-                if(id == 1)
+                if (id == 1)
                 {
-                    if(mark > assignment.CETotal)
+                    if (mark > assignment.CETotal)
                     {
                         return Json("Continuous Evalution marks should be within " + assignment.CETotal);
                     }
                     enrollment.CEMark = mark;
                 }
-                else if(id ==2 )
+                else if (id == 2)
                 {
                     if (mark > assignment.FinalExamTotal)
                     {
                         return Json("Continuous Evalution marks should be within " + assignment.FinalExamTotal);
                     }
                     enrollment.FinalMark = mark;
-                    
+
                 }
                 //enrollment.CEMark = CETotal;
                 //enrollment.FinalMark = FinalExamTotal;
@@ -318,7 +320,7 @@ namespace RMS.Controllers
                 db.Entry(assignment).State = EntityState.Modified;
 
             }
-            if (id==2)
+            if (id == 2)
             {
                 assignment.FinalSubmitted = true;
                 db.Entry(assignment).State = EntityState.Modified;
@@ -425,6 +427,61 @@ namespace RMS.Controllers
 
             return Json("Marks Submitted Successfully");
             //return View();
+        }
+
+        private void SaveLog(List<string[]> oldValue, List<string[]> newValue, Assignment assignment)
+        {
+
+
+            //genArray();
+            ArrayList log = new ArrayList();
+            String[] header = new String[oldValue[0].Length];
+
+            //foreach(var row in )
+
+            String[][] a = oldValue.ToArray();
+            String[][] b = newValue.ToArray();
+            for (int i = 0; i < oldValue[0].Length; i++)
+            {
+                header[i] = a[0][i];
+            }
+            for (int i = 1; i < oldValue.Count; i++)
+            {
+                for (int j = 1; j < oldValue[0].Length; j++)
+                {
+                    String old = a[i][j];
+                    String ne = b[i][j];
+                    if (old == null || ne == null) continue;
+                    if (!old.Equals(ne))
+                    {
+                        String changecol = header[j];
+                        String student = a[i][2];
+                        log.Add("Change Occur for Student " + student + " In column " + changecol + " Old Value=" + old + " New Value=" + ne);
+                        //Console.WriteLine(log.);
+                    }
+                }
+            }
+
+            var userID = User.Identity.GetUserId();
+            var instructor = db.Users.Find(userID).Instructor;
+
+
+            for (int i = 0; i < log.Count; i++)
+            {
+                var myLog = new Log
+                {
+                    DateTime = DateTime.Now,
+                    LogMessage = log[i].ToString(),
+                    AssignmentID = assignment.AssignmentID,
+                    Assignment = assignment
+
+                };
+                db.Logs.Add(myLog);
+                db.SaveChanges();
+                //Console.WriteLine(log[i]);
+            }
+
+            //Console.WriteLine(mark);
         }
 
     }

@@ -20,7 +20,8 @@ namespace RMS.Models
         public double CurrentSemesterGPA {
             get
             {
-                return Math.Round( CurrentSemesterObtainedCredits/CurrentSemesterObtainedCredits, 2);
+                if (CurrentSemesterTotalCredits == 0.0) return 0.0;
+                return Math.Round( CurrentSemesterObtainedCredits/CurrentSemesterTotalCredits, 2);
             }
         }
 
@@ -35,7 +36,7 @@ namespace RMS.Models
         {
             get
             {
-                return TotalObtainedCredits - CurrentSemesterTotalCredits;
+                return TotalObtainedCredits - CurrentSemesterObtainedCredits;
             }
         }
         [Display(Name = "GPA")]
@@ -43,6 +44,7 @@ namespace RMS.Models
         {
             get
             {
+                if (UptoPreviousSemesterTotalCredits == 0.0) return 0.0;
                 return Math.Round(UptoPreviousSemesterObtainedCredits / UptoPreviousSemesterTotalCredits, 2);
             }
         }
@@ -55,6 +57,7 @@ namespace RMS.Models
         {
             get
             {
+                if (TotalCredits == 0.0) return 0.0;
                 return Math.Round(TotalObtainedCredits / TotalCredits, 2);
             }
         }

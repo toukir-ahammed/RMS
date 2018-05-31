@@ -1,67 +1,82 @@
-﻿@model IEnumerable<RMSDataModel.Enrollment>
-
+﻿@model PagedList.IPagedList<RMSDataModel.Enrollment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Enrollment List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-md", role = "button" })
 </p>
+
+<br /> <br />
+
+@using (Html.BeginForm("Index", "Enrollments", FormMethod.Get))
+{
+    <p>
+
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        <br>
+        <input type="submit" value="Search" class="btn btn-info" style="display:inline" />
+
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Course.Title)
+            @Html.ActionLink("Course", "Index", new { sortOrder = ViewBag.CourseSortParm })
         </th>
-        
+
         <th>
-            @Html.DisplayNameFor(model => model.Student.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Semester)
+            @Html.ActionLink("Student", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CalenderYear)
+            @Html.ActionLink("Semester", "Index", new { sortOrder = ViewBag.SemSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CEMark)
+            @Html.ActionLink("Calender Year", "Index", new { sortOrder = ViewBag.YearSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FinalMark)
+            @Html.ActionLink("CE Mark", "Index", new { sortOrder = ViewBag.CESortParm })
         </th>
-        
-        <th></th>
+        <th>
+            @Html.ActionLink("Final Mark", "Index", new { sortOrder = ViewBag.FinalSortParm })
+
+<th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Title)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Semester)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CalenderYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CEMark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalMark)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EnrollmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EnrollmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EnrollmentId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalenderYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CEMark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinalMark)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EnrollmentId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EnrollmentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EnrollmentId })
+            </td>
+        </tr>
+    }
 
 </table>

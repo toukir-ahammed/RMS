@@ -46,12 +46,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\touki\Downloads\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
@@ -65,6 +75,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -200,6 +211,7 @@
     <Compile Include="Controllers\HandsNotableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorsController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyCoursesController.cs" />
     <Compile Include="Controllers\ResultController.cs" />
@@ -294,12 +306,27 @@
     <Compile Include="Migrations\201805292106169_BooleanAddedInAssignment.Designer.cs">
       <DependentUpon>201805292106169_BooleanAddedInAssignment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805301116550_LogAdded.cs" />
+    <Compile Include="Migrations\201805301116550_LogAdded.Designer.cs">
+      <DependentUpon>201805301116550_LogAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805301155389_LogAdded1.cs" />
+    <Compile Include="Migrations\201805301155389_LogAdded1.Designer.cs">
+      <DependentUpon>201805301155389_LogAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805301916349_LogAdded2.cs" />
+    <Compile Include="Migrations\201805301916349_LogAdded2.Designer.cs">
+      <DependentUpon>201805301916349_LogAdded2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InstructorIndexData.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MarkSheetViewModel.cs" />
+    <Compile Include="Models\PDFGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Models\ResultViewModel.cs" />
     <Compile Include="Models\TabulationSheetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -310,6 +337,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dulogo.png" />
     <Content Include="Content\lumen-bootstrap.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\simplex-bootstrap.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -329,6 +357,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jspdf.debug.js" />
+    <Content Include="Scripts\jspdf.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -420,11 +450,13 @@
     <Content Include="Views\Enrollments\Edit.cshtml" />
     <Content Include="Views\Enrollments\Index.cshtml" />
     <Content Include="Views\Assignments\Delete.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DAL\" />
     <Folder Include="MarkSheets\" />
+    <Folder Include="Transcripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -502,6 +534,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805292106169_BooleanAddedInAssignment.resx">
       <DependentUpon>201805292106169_BooleanAddedInAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301116550_LogAdded.resx">
+      <DependentUpon>201805301116550_LogAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301155389_LogAdded1.resx">
+      <DependentUpon>201805301155389_LogAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805301916349_LogAdded2.resx">
+      <DependentUpon>201805301916349_LogAdded2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

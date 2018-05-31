@@ -1,69 +1,98 @@
-﻿@model IEnumerable<RMSDataModel.Student>
+﻿@model PagedList.IPagedList<RMSDataModel.Student>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Student List";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-md", role = "button" })
 </p>
+<br /> <br /> 
+
+@using (Html.BeginForm("Index", "Students", FormMethod.Get))
+{
+    <p >
+
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+        <br>
+        <input type="submit" value="Search" class="btn btn-info" style="display:inline" />
+
+    </p>
+}
+
+    
+
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Department.Name)
+            @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DepartmentSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
+            @Html.ActionLink("Registration No.", "Index", new { sortOrder = ViewBag.RegNoSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Session)
+            @Html.ActionLink("Session", "Index", new { sortOrder = ViewBag.SessionSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClassRoll)
+            @Html.ActionLink("Class Roll", "Index", new { sortOrder = ViewBag.ClassRollSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExamRoll)
+            @Html.ActionLink("Exam Roll", "Index", new { sortOrder = ViewBag.ExamRollSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Semester)
+            @Html.ActionLink("Semester", "Index", new { sortOrder = ViewBag.SemesterSortParm })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Session)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassRoll)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExamRoll)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Semester)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Session)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassRoll)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExamRoll)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Semester)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info btn-md", role = "button" } )
+    </div>*@
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

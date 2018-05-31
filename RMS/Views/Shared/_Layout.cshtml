@@ -21,31 +21,32 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
-                        <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
-                        <li>@Html.ActionLink("Students", "Index", "Students")</li>
-                        <li>@Html.ActionLink("Enrollments", "Index", "Enrollments")</li>
-                        <li>@Html.ActionLink("Assignments", "Index", "Assignments")</li>
-                        <li>@Html.ActionLink("PublishResult", "Index", "ResultPublications")</li>
-                        <li>@Html.ActionLink("TabulationSheet", "Index", "TabulationSheet")</li>
+    {
+                @*<li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>*@
+                <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+                <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
+                <li>@Html.ActionLink("Students", "Index", "Students")</li>
+                <li>@Html.ActionLink("Enrollments", "Index", "Enrollments")</li>
+                <li>@Html.ActionLink("Course Assignments", "Index", "Assignments")</li>
+                <li>@Html.ActionLink("Publish Result", "Index", "ResultPublications")</li>
+                <li>@Html.ActionLink("TabulationSheet", "Index", "TabulationSheet")</li>
+                <li>@Html.ActionLink("Logs", "Index", "Logs")</li>
 
-                    }
-                    else if (User.IsInRole("Instructor"))
-                    {
-                        <li>@Html.ActionLink("My Courses", "Index", "MyCourses")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Results", "Index", "Result")</li>
-                    }
+}
+else if (User.IsInRole("Instructor"))
+{
+                <li>@Html.ActionLink("My Courses", "Index", "MyCourses")</li>
+}
+else
+{
+                <li>@Html.ActionLink("Results", "Index", "Result")</li>
+}
 
                     @*Uncomment to add About and Contact*@
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -55,7 +56,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; bsse0806@iit.du.ac.bd, bsse0825@iit.du.ac.bd @DateTime.Now.Year - RMS</p>
+            <p class="text-center">&copy;  RMS -@DateTime.Now.Year </p>
         </footer>
     </div>
 

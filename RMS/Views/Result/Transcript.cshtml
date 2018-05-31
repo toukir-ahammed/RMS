@@ -169,19 +169,19 @@
 
     <tr>
         <td>
-            @Html.DisplayFor(item => Model.CurrentSemesterTotalCredits)
+            @Html.DisplayFor(item => Model.CurrentSemesterObtainedCredits)
         </td>
         <td>
             @Html.DisplayFor(item => Model.CurrentSemesterGPA)
         </td>
         <td>
-            @Html.DisplayFor(item => Model.UptoPreviousSemesterTotalCredits)
+            @Html.DisplayFor(item => Model.UptoPreviousSemesterObtainedCredits)
         </td>
         <td>
             @Html.DisplayFor(item => Model.UptoPreviousSemesterGPA)
         </td>
         <td>
-            @Html.DisplayFor(item => Model.TotalCredits)
+            @Html.DisplayFor(item => Model.TotalObtainedCredits)
         </td>
         <td>
             @Html.DisplayFor(item => Model.CGPA)
@@ -189,3 +189,19 @@
     </tr>
 
 </table>
+
+@{
+    var filename = Model.Student.RegistrationNumber + ".pdf";
+}
+<div id="test">
+
+    <a href="~/Transcripts/@filename" target="_blank" class="btn btn-info btn-md">Download</a>
+</div>
+<br>
+<button onclick="myFunction()">Print this page</button>
+
+<script>
+    function myFunction() {
+        window.print();
+    }
+</script>

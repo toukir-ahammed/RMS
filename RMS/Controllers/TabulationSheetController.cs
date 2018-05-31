@@ -14,6 +14,7 @@ namespace RMS.Controllers
         // GET: TabulationSheet
         public ActionResult Index()
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
@@ -24,6 +25,7 @@ namespace RMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TabulationSheet(TabulationSheetViewModel model, string returnUrl)
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             //var enrollments = db.Enrollments.
             //    Where(e => e.Semester == model.Semester && e.CalenderYear == model.CalenderYear);
 
@@ -31,9 +33,23 @@ namespace RMS.Controllers
             //    .Where(s => s.Enrollments
             //    .Select(i => i.Semester == model.Semester && i.CalenderYear == model.CalenderYear).Single());
 
-            var students = db.Students
-                .Where(s => s.Semester == model.Semester);
-            return View(students.ToList());
+            //var students = db.Students
+            //    .Where(s => s.Semester == model.Semester);
+            //return View(students.ToList());
+
+            var enrollments = db.Enrollments
+                .Where(e => e.Student.DepartmentId == model.DepartmentID
+                && e.Semester == model.Semester
+                && e.CalenderYear == model.CalenderYear).ToList();
+
+            HashSet<Student> students = new HashSet<Student>();
+
+            foreach(var enrollment in enrollments)
+            {
+                students.Add(enrollment.Student);
+            }
+
+            return View(students);
         }
 
     }

@@ -1,10 +1,10 @@
 ﻿@model RMSDataModel.Enrollment
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Enrollment Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
     <h4>Enrollment</h4>
@@ -65,6 +65,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EnrollmentId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EnrollmentId }, new { @class = "btn btn-info btn-md", role = "button" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info btn-md", role = "button" })
 </p>

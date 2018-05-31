@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using RMS.Models;
 using RMSDataModel;
+using PagedList;
 
 namespace RMS.Controllers
 {
@@ -16,10 +17,100 @@ namespace RMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Students
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var students = db.Students.Include(s => s.Department);
+        //    return View(students.ToList());
+        //}
+
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var students = db.Students.Include(s => s.Department);
-            return View(students.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DepartmentSortParm = sortOrder == "Department" ? "dept_desc" : "Department";
+            ViewBag.SemesterSortParm = sortOrder == "Semester" ? "sem_desc" : "Semester";
+            ViewBag.SessionSortParm = sortOrder == "Session" ? "session_desc" : "Session";
+            ViewBag.ClassRollSortParm = sortOrder == "ClassRoll" ? "class_roll_desc" : "ClassRoll";
+            ViewBag.ExamRollSortParm = sortOrder == "ExamRoll" ? "exam_roll_desc" : "ExamRoll";
+            ViewBag.RegNoSortParm = sortOrder == "RegNo" ? "reg_no_desc" : "RegNo";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var students = db.Students.Include(i => i.Department);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.Name.Contains(searchString)
+                                       || s.Department.Name.Contains(searchString)
+                                       || s.Semester.ToString().Contains(searchString)
+                                       || s.Session.Contains(searchString)
+                                       || s.ClassRoll.ToString().Contains(searchString)
+                                       || s.ExamRoll.ToString().Contains(searchString)
+                                       || s.RegistrationNumber.Contains(searchString)
+                                       );
+            }
+
+            
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.Name);
+                    break;
+                case "Department":
+                    students = students.OrderBy(s => s.Department.Name);
+                    break;
+                case "dept_desc":
+                    students = students.OrderByDescending(s => s.Department.Name);
+                    break;
+                case "Semester":
+                    students = students.OrderBy(s => s.Semester);
+                    break;
+                case "sem_desc":
+                    students = students.OrderByDescending(s => s.Semester);
+                    break;
+                case "Session":
+                    students = students.OrderBy(s => s.Session);
+                    break;
+                case "session_desc":
+                    students = students.OrderByDescending(s => s.Session);
+                    break;
+                case "ClassRoll":
+                    students = students.OrderBy(s => s.ClassRoll);
+                    break;
+                case "class_roll_desc":
+                    students = students.OrderByDescending(s => s.ClassRoll);
+                    break;
+                case "ExamRoll":
+                    students = students.OrderBy(s => s.ExamRoll);
+                    break;
+                case "exam_roll_desc":
+                    students = students.OrderByDescending(s => s.ExamRoll);
+                    break;
+                case "RegNo":
+                    students = students.OrderBy(s => s.RegistrationNumber);
+                    break;
+                case "reg_no_desc":
+                    students = students.OrderByDescending(s => s.RegistrationNumber);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.Name);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
+
+            //return View(students.ToList());
         }
 
         // GET: Students/Details/5
