@@ -66,7 +66,7 @@ namespace RMS
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("toukirahammedsajol@gmail.com", "Toukir"),
+                From = new EmailAddress("toukirahammedsajol@gmail.com", "Result Management System"),
                 Subject = message.Subject,
                 PlainTextContent = message.Body,
                 HtmlContent = message.Body
@@ -107,7 +107,7 @@ namespace RMS
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 8,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,

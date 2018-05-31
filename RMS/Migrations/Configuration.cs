@@ -44,7 +44,7 @@ namespace RMS.Migrations
                     UserName = "admin@rms.com",
                     Email = "admin@rms.com",
                     //MyUserInfo = new MyUserInfo { FirstName = "Admin", LastName = "Admin" },
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
                 };
                 userManager.Create(user, "@Bcd1234");
 
@@ -76,17 +76,17 @@ namespace RMS.Migrations
             var students = new List<Student>
             {
                 new Student { Name = "Toukir Ahammed",  ClassRoll = 806, ExamRoll = 822,
-                    RegistrationNumber = "201531800", Session = "2015-16", DepartmentId = 7 },
+                    RegistrationNumber = "201531800", Session = "2015-16", DepartmentId = 1 },
                 new Student { Name = "Tahmid Khan",  ClassRoll = 801, ExamRoll = 801,
-                    RegistrationNumber = "201531801", Session = "2015-16", DepartmentId = 7 },
+                    RegistrationNumber = "201531801", Session = "2015-16", DepartmentId = 1 },
                 new Student { Name = "Iftekhar Jamil",  ClassRoll = 802, ExamRoll = 802,
-                    RegistrationNumber = "201531802", Session = "2015-16" , DepartmentId = 7 },
+                    RegistrationNumber = "201531802", Session = "2015-16" , DepartmentId = 1 },
                 new Student { Name = "Tahlil",  ClassRoll = 803, ExamRoll = 803,
-                    RegistrationNumber = "201531803", Session = "2015-16" , DepartmentId = 7 },
+                    RegistrationNumber = "201531803", Session = "2015-16" , DepartmentId = 1 },
                 new Student { Name = "Abdullah Al Jubaer",  ClassRoll = 812, ExamRoll = 823,
-                    RegistrationNumber = "201531805", Session = "2015-16" , DepartmentId = 7 },
+                    RegistrationNumber = "201531805", Session = "2015-16" , DepartmentId = 1 },
                 new Student { Name = "Aba Kowser",  ClassRoll = 825, ExamRoll = 825,
-                    RegistrationNumber = "201531809", Session = "2015-16" , DepartmentId = 7 }
+                    RegistrationNumber = "201531809", Session = "2015-16" , DepartmentId = 1 }
             };
 
             students.ForEach(s => context.Students.AddOrUpdate(p => p.Name, s));
